@@ -8,14 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		15E9D6EB183C3F3D005648D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E9D6EA183C3F3D005648D7 /* Foundation.framework */; };
-		15E9D6F0183C3F3D005648D7 /* RadialEntity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15E9D6EF183C3F3D005648D7 /* RadialEntity.h */; };
-		15E9D6F2183C3F3D005648D7 /* RadialEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D6F1183C3F3D005648D7 /* RadialEntity.m */; };
 		15E9D6F9183C3F3D005648D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E9D6F8183C3F3D005648D7 /* XCTest.framework */; };
 		15E9D6FA183C3F3D005648D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E9D6EA183C3F3D005648D7 /* Foundation.framework */; };
 		15E9D6FC183C3F3D005648D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E9D6FB183C3F3D005648D7 /* UIKit.framework */; };
 		15E9D6FF183C3F3D005648D7 /* libRadialEntity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E9D6E7183C3F3D005648D7 /* libRadialEntity.a */; };
 		15E9D705183C3F3D005648D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E9D703183C3F3D005648D7 /* InfoPlist.strings */; };
 		15E9D707183C3F3D005648D7 /* RadialEntityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D706183C3F3D005648D7 /* RadialEntityTests.m */; };
+		15E9D71D183C4165005648D7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D71B183C4165005648D7 /* User.m */; };
+		15E9D720183C4191005648D7 /* REAbstractEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D71F183C4191005648D7 /* REAbstractEntity.m */; };
+		15E9D721183C4191005648D7 /* REAbstractEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D71F183C4191005648D7 /* REAbstractEntity.m */; };
+		15E9D724183C435D005648D7 /* REContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D723183C435D005648D7 /* REContext.m */; };
+		15E9D727183C4900005648D7 /* REEntityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D726183C4900005648D7 /* REEntityModel.m */; };
+		15E9D72E183C691E005648D7 /* RESynchronizedScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D72D183C691E005648D7 /* RESynchronizedScope.m */; };
+		15E9D731183C845C005648D7 /* REKeyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D730183C845C005648D7 /* REKeyTranslator.m */; };
+		15E9D732183C845C005648D7 /* REKeyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D730183C845C005648D7 /* REKeyTranslator.m */; };
+		D2E6E889896347AB944AF071 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4054DC14675A4D3082635CBF /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +42,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				15E9D6F0183C3F3D005648D7 /* RadialEntity.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,14 +51,27 @@
 		15E9D6E7183C3F3D005648D7 /* libRadialEntity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRadialEntity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E9D6EA183C3F3D005648D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15E9D6EE183C3F3D005648D7 /* RadialEntity-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RadialEntity-Prefix.pch"; sourceTree = "<group>"; };
-		15E9D6EF183C3F3D005648D7 /* RadialEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadialEntity.h; sourceTree = "<group>"; };
-		15E9D6F1183C3F3D005648D7 /* RadialEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadialEntity.m; sourceTree = "<group>"; };
 		15E9D6F7183C3F3D005648D7 /* RadialEntityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadialEntityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E9D6F8183C3F3D005648D7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		15E9D6FB183C3F3D005648D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		15E9D702183C3F3D005648D7 /* RadialEntityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RadialEntityTests-Info.plist"; sourceTree = "<group>"; };
 		15E9D704183C3F3D005648D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		15E9D706183C3F3D005648D7 /* RadialEntityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadialEntityTests.m; sourceTree = "<group>"; };
+		15E9D711183C3FF2005648D7 /* RadialEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadialEntity.h; sourceTree = "<group>"; };
+		15E9D71A183C4165005648D7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		15E9D71B183C4165005648D7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		15E9D71E183C4191005648D7 /* REAbstractEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REAbstractEntity.h; sourceTree = "<group>"; };
+		15E9D71F183C4191005648D7 /* REAbstractEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REAbstractEntity.m; sourceTree = "<group>"; };
+		15E9D722183C435D005648D7 /* REContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REContext.h; sourceTree = "<group>"; };
+		15E9D723183C435D005648D7 /* REContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REContext.m; sourceTree = "<group>"; };
+		15E9D725183C4900005648D7 /* REEntityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REEntityModel.h; sourceTree = "<group>"; };
+		15E9D726183C4900005648D7 /* REEntityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REEntityModel.m; sourceTree = "<group>"; };
+		15E9D72C183C691E005648D7 /* RESynchronizedScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESynchronizedScope.h; sourceTree = "<group>"; };
+		15E9D72D183C691E005648D7 /* RESynchronizedScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESynchronizedScope.m; sourceTree = "<group>"; };
+		15E9D72F183C845C005648D7 /* REKeyTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REKeyTranslator.h; sourceTree = "<group>"; };
+		15E9D730183C845C005648D7 /* REKeyTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REKeyTranslator.m; sourceTree = "<group>"; };
+		2B2562A8282E49C3BEED8BBB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		4054DC14675A4D3082635CBF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15E9D6EB183C3F3D005648D7 /* Foundation.framework in Frameworks */,
+				D2E6E889896347AB944AF071 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,10 +101,12 @@
 		15E9D6DE183C3F3D005648D7 = {
 			isa = PBXGroup;
 			children = (
-				15E9D6EC183C3F3D005648D7 /* RadialEntity */,
+				15E9D710183C3FA7005648D7 /* Classes */,
+				15E9D6ED183C3F3D005648D7 /* Supporting Files */,
 				15E9D700183C3F3D005648D7 /* RadialEntityTests */,
 				15E9D6E9183C3F3D005648D7 /* Frameworks */,
 				15E9D6E8183C3F3D005648D7 /* Products */,
+				2B2562A8282E49C3BEED8BBB /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,18 +125,9 @@
 				15E9D6EA183C3F3D005648D7 /* Foundation.framework */,
 				15E9D6F8183C3F3D005648D7 /* XCTest.framework */,
 				15E9D6FB183C3F3D005648D7 /* UIKit.framework */,
+				4054DC14675A4D3082635CBF /* libPods.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		15E9D6EC183C3F3D005648D7 /* RadialEntity */ = {
-			isa = PBXGroup;
-			children = (
-				15E9D6EF183C3F3D005648D7 /* RadialEntity.h */,
-				15E9D6F1183C3F3D005648D7 /* RadialEntity.m */,
-				15E9D6ED183C3F3D005648D7 /* Supporting Files */,
-			);
-			path = RadialEntity;
 			sourceTree = "<group>";
 		};
 		15E9D6ED183C3F3D005648D7 /* Supporting Files */ = {
@@ -122,16 +135,18 @@
 			children = (
 				15E9D6EE183C3F3D005648D7 /* RadialEntity-Prefix.pch */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		15E9D700183C3F3D005648D7 /* RadialEntityTests */ = {
 			isa = PBXGroup;
 			children = (
 				15E9D706183C3F3D005648D7 /* RadialEntityTests.m */,
+				15E9D715183C3FFE005648D7 /* Test Classes */,
 				15E9D701183C3F3D005648D7 /* Supporting Files */,
 			);
-			path = RadialEntityTests;
+			name = RadialEntityTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		15E9D701183C3F3D005648D7 /* Supporting Files */ = {
@@ -143,6 +158,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		15E9D710183C3FA7005648D7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				15E9D711183C3FF2005648D7 /* RadialEntity.h */,
+				15E9D71E183C4191005648D7 /* REAbstractEntity.h */,
+				15E9D71F183C4191005648D7 /* REAbstractEntity.m */,
+				15E9D72F183C845C005648D7 /* REKeyTranslator.h */,
+				15E9D730183C845C005648D7 /* REKeyTranslator.m */,
+				15E9D725183C4900005648D7 /* REEntityModel.h */,
+				15E9D726183C4900005648D7 /* REEntityModel.m */,
+				15E9D72C183C691E005648D7 /* RESynchronizedScope.h */,
+				15E9D72D183C691E005648D7 /* RESynchronizedScope.m */,
+				15E9D722183C435D005648D7 /* REContext.h */,
+				15E9D723183C435D005648D7 /* REContext.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		15E9D715183C3FFE005648D7 /* Test Classes */ = {
+			isa = PBXGroup;
+			children = (
+				15E9D71A183C4165005648D7 /* User.h */,
+				15E9D71B183C4165005648D7 /* User.m */,
+			);
+			name = "Test Classes";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +192,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 15E9D70A183C3F3D005648D7 /* Build configuration list for PBXNativeTarget "RadialEntity" */;
 			buildPhases = (
+				D89D6B9AF4A04CA998BD2986 /* Check Pods Manifest.lock */,
 				15E9D6E3183C3F3D005648D7 /* Sources */,
 				15E9D6E4183C3F3D005648D7 /* Frameworks */,
 				15E9D6E5183C3F3D005648D7 /* CopyFiles */,
+				8EBE6AFC08A345099E314958 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -219,12 +263,49 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8EBE6AFC08A345099E314958 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D89D6B9AF4A04CA998BD2986 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		15E9D6E3183C3F3D005648D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15E9D6F2183C3F3D005648D7 /* RadialEntity.m in Sources */,
+				15E9D731183C845C005648D7 /* REKeyTranslator.m in Sources */,
+				15E9D724183C435D005648D7 /* REContext.m in Sources */,
+				15E9D727183C4900005648D7 /* REEntityModel.m in Sources */,
+				15E9D72E183C691E005648D7 /* RESynchronizedScope.m in Sources */,
+				15E9D720183C4191005648D7 /* REAbstractEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +313,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E9D732183C845C005648D7 /* REKeyTranslator.m in Sources */,
 				15E9D707183C3F3D005648D7 /* RadialEntityTests.m in Sources */,
+				15E9D721183C4191005648D7 /* REAbstractEntity.m in Sources */,
+				15E9D71D183C4165005648D7 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,10 +414,11 @@
 		};
 		15E9D70B183C3F3D005648D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B2562A8282E49C3BEED8BBB /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/RadialEntity.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RadialEntity/RadialEntity-Prefix.pch";
+				GCC_PREFIX_HEADER = "Supporting Files/RadialEntity-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -342,10 +427,11 @@
 		};
 		15E9D70C183C3F3D005648D7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B2562A8282E49C3BEED8BBB /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/RadialEntity.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RadialEntity/RadialEntity-Prefix.pch";
+				GCC_PREFIX_HEADER = "Supporting Files/RadialEntity-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -362,12 +448,12 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RadialEntity/RadialEntity-Prefix.pch";
+				GCC_PREFIX_HEADER = "Supporting Files/RadialEntity-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "RadialEntityTests/RadialEntityTests-Info.plist";
+				INFOPLIST_FILE = "Tests/RadialEntityTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -383,8 +469,8 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RadialEntity/RadialEntity-Prefix.pch";
-				INFOPLIST_FILE = "RadialEntityTests/RadialEntityTests-Info.plist";
+				GCC_PREFIX_HEADER = "Supporting Files/RadialEntity-Prefix.pch";
+				INFOPLIST_FILE = "Tests/RadialEntityTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -409,6 +495,7 @@
 				15E9D70C183C3F3D005648D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15E9D70D183C3F3D005648D7 /* Build configuration list for PBXNativeTarget "RadialEntityTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +504,7 @@
 				15E9D70F183C3F3D005648D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

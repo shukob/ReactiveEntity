@@ -1,0 +1,20 @@
+PODS:
+  - BlocksKit (1.8.3):
+    - libffi
+  - FMDB (2.1):
+    - FMDB/standard
+  - FMDB/common (2.1)
+  - FMDB/standard (2.1):
+    - FMDB/common
+  - libffi (3.0.13)
+
+DEPENDENCIES:
+  - BlocksKit
+  - FMDB
+
+SPEC CHECKSUMS:
+  BlocksKit: 27257f9cbbec0ea98c80ba83cc2ea7111ae62eb2
+  FMDB: 3fd5aaf632ca4ed39e3f101e0398504e6d5b0918
+  libffi: 64ef39353e747bb2b25e1026afd96a157bf9231c
+
+COCOAPODS: 0.27.1
