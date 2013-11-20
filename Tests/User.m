@@ -14,7 +14,8 @@
 
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
 {
-    [translator addRuleForSourceKey:@"profile_image_url" translatedKey:@"profileImageURL"];
+    [translator addRuleForSourceKey:@"profile_image_url"
+                      translatedKey:@"profileImageURL"];
 }
 
 @end
