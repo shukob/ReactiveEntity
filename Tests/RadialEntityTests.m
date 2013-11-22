@@ -46,7 +46,7 @@
     User *user = [User entityWithIdentifier:@(2)];
     user.name = name;
     
-    [user synchronizedScopeWithOwner:self block:^{
+    [user synchronizedScopeWithOwner:self block:^(id owner) {
         name = user.name;
     }];
     
@@ -84,9 +84,10 @@
     __block NSInteger counter = 0;
     
     @autoreleasepool {
-        NSObject *owner = [[NSObject alloc] init];
+        NSObject *object = [[NSObject alloc] init];
         
-        [user synchronizedScopeWithOwner:owner block:^{
+        [user synchronizedScopeWithOwner:object block:^(NSObject *owner) {
+            NSLog(@"%@", owner);
             counter++;
         }];
         
@@ -99,7 +100,7 @@
     
     user.age = @(12);
     
-    XCTAssertEqual(counter, 2, @"owner が解放された後は synchronized ブロックが呼ばれないこと");
+    XCTAssertEqual(counter, 2, @"owner が解放され、synchronized ブロックが呼ばれなくなること");
 }
 
 @end

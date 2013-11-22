@@ -18,8 +18,8 @@
 
 - (id <NSCopying>)identifier;
 
-- (void)synchronizedScopeWithOwner:(id)owner block:(void(^)(void))block;
-- (void)synchronizedScopeWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void(^)(void))block;
+- (void)synchronizedScopeWithOwner:(id)owner block:(void(^)(id owner))block;
+- (void)synchronizedScopeWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void(^)(id owner))block;
 - (void)synchronize;
 
 - (void)setValue:(id)value forKey:(NSString *)key synchronize:(BOOL)synchronize;

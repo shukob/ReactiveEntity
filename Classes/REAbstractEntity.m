@@ -103,16 +103,18 @@
 
 #pragma mark -
 
-- (void)synchronizedScopeWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void (^)(void))block
+- (void)synchronizedScopeWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void (^)(id owner))block
 {
-    RESynchronizedScope *scope = [[RESynchronizedScope alloc] initWithBlock:block queue:queue];
+    __weak id weakOwner = owner;
+    void(^caller)(void) = ^{ block(weakOwner); };
+    RESynchronizedScope *scope = [[RESynchronizedScope alloc] initWithBlock:caller queue:queue];
     NSString *referenceKey = [NSString stringWithFormat:@"__synchronizedScope_%ld", (long)self];
     objc_setAssociatedObject(owner, [referenceKey cStringUsingEncoding:NSASCIIStringEncoding], scope, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self.synchronizedScopes addObject:scope];
-    block();
+    caller();
 }
 
-- (void)synchronizedScopeWithOwner:(id)owner block:(void (^)(void))block
+- (void)synchronizedScopeWithOwner:(id)owner block:(void (^)(id owner))block
 {
     [self synchronizedScopeWithOwner:owner queue:nil block:block];
 }
