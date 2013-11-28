@@ -35,6 +35,6 @@
 - (void)assignAttributesFromDictionary:(NSDictionary *)attributes;
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator;
 
-+ (NSArray *)importFromListOfDictionary:(NSDictionary *)listOfDictionary identifierKey:(id)identifierKey;
++ (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary identifierKey:(id)identifierKey;
 
 @end

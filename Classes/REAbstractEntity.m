@@ -272,7 +272,7 @@
 {
 }
 
-+ (NSArray *)importFromListOfDictionary:(NSDictionary *)listOfDictionary identifierKey:(id)identifierKey
++ (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary identifierKey:(id)identifierKey
 {
     NSMutableArray *buffer = [NSMutableArray array];
     for (NSDictionary *attribute in listOfDictionary) {
