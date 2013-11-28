@@ -31,9 +31,10 @@
 
 @interface REAbstractEntity (MassAssignment)
 
-+ (instancetype)importFromDictionary:(NSDictionary *)attributes identifier:(id<NSCopying>)identifier;
++ (instancetype)importFromDictionary:(NSDictionary *)dictionary identifierKey:(id)identifierKey;
 - (void)assignAttributesFromDictionary:(NSDictionary *)attributes;
-
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator;
+
++ (NSArray *)importFromListOfDictionary:(NSDictionary *)listOfDictionary identifierKey:(id)identifierKey;
 
 @end

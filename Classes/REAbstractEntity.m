@@ -250,9 +250,9 @@
 
 @implementation REAbstractEntity (MassAssignment)
 
-+ (instancetype)importFromDictionary:(NSDictionary *)attributes identifier:(id<NSCopying>)identifier
++ (instancetype)importFromDictionary:(NSDictionary *)attributes identifierKey:(id)identifierKey
 {
-    REAbstractEntity *entity = [self entityWithIdentifier:identifier];
+    REAbstractEntity *entity = [self entityWithIdentifier:attributes[identifierKey]];
     [entity assignAttributesFromDictionary:attributes];
     return entity;
 }
@@ -270,6 +270,15 @@
 
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
 {
+}
+
++ (NSArray *)importFromListOfDictionary:(NSDictionary *)listOfDictionary identifierKey:(id)identifierKey
+{
+    NSMutableArray *buffer = [NSMutableArray array];
+    for (NSDictionary *attribute in listOfDictionary) {
+        [buffer addObject:[self importFromDictionary:attribute identifierKey:identifierKey]];
+    }
+    return buffer.copy;
 }
 
 @end
