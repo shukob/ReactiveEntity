@@ -27,14 +27,16 @@
 + (REContext *)context;
 + (REEntityModel *)entityModel;
 
++ (NSString *)identifierKey;
+
 @end
 
 @interface REAbstractEntity (MassAssignment)
 
-+ (instancetype)importFromDictionary:(NSDictionary *)dictionary identifierKey:(id)identifierKey;
++ (instancetype)importFromDictionary:(NSDictionary *)dictionary;
 - (void)assignAttributesFromDictionary:(NSDictionary *)attributes;
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator;
 
-+ (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary identifierKey:(id)identifierKey;
++ (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary;
 
 @end

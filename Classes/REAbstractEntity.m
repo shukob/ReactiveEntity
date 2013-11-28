@@ -245,13 +245,19 @@
     return YES;
 }
 
-@end
++ (NSString *)identifierKey
+{
+    return @"ID";
+}
 
+@end
 
 @implementation REAbstractEntity (MassAssignment)
 
-+ (instancetype)importFromDictionary:(NSDictionary *)attributes identifierKey:(id)identifierKey
++ (instancetype)importFromDictionary:(NSDictionary *)attributes
 {
+    REKeyTranslator *translator = [self.class entityModel].massAssignmentKeyTranslator;
+    NSString *identifierKey = [translator restoreSourceKeyForTranslatedKey:[self identifierKey]] ?: [self identifierKey];
     REAbstractEntity *entity = [self entityWithIdentifier:attributes[identifierKey]];
     [entity assignAttributesFromDictionary:attributes];
     return entity;
@@ -272,11 +278,11 @@
 {
 }
 
-+ (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary identifierKey:(id)identifierKey
++ (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary
 {
     NSMutableArray *buffer = [NSMutableArray array];
     for (NSDictionary *attribute in listOfDictionary) {
-        [buffer addObject:[self importFromDictionary:attribute identifierKey:identifierKey]];
+        [buffer addObject:[self importFromDictionary:attribute]];
     }
     return buffer.copy;
 }

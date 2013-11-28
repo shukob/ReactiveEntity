@@ -10,5 +10,6 @@
 
 - (void)addRuleForSourceKey:(NSString *)sourceKey translatedKey:(NSString *)translatedKey;
 - (NSString *)translateKeyForSourceKey:(NSString *)sourceKey;
+- (NSString *)restoreSourceKeyForTranslatedKey:(NSString *)translatedKey;
 
 @end

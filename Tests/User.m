@@ -10,12 +10,20 @@
 
 @implementation User
 
-@dynamic name, age, profileImageURL;
+@dynamic ID, name, age, profileImageURL;
 
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
 {
+    [translator addRuleForSourceKey:@"id"
+                      translatedKey:@"ID"];
+    
     [translator addRuleForSourceKey:@"profile_image_url"
                       translatedKey:@"profileImageURL"];
+}
+
++ (NSString *)identifierKey
+{
+    return @"ID";
 }
 
 @end

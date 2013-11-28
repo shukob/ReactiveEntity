@@ -32,4 +32,15 @@
     return self.rules[sourceKey] ?: sourceKey;
 }
 
+- (NSString *)restoreSourceKeyForTranslatedKey:(NSString *)translatedKey
+{
+    __block NSString *sourceKey = nil;
+    [self.rules enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isEqual:translatedKey]) {
+            sourceKey = key;
+        }
+    }];
+    return sourceKey;
+}
+
 @end

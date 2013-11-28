@@ -9,6 +9,7 @@
 #import "RadialEntity.h"
 
 @interface User : REAbstractEntity
+@property (nonatomic, strong) NSNumber *ID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) NSString *profileImageURL;

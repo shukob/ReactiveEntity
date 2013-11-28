@@ -63,16 +63,40 @@
 - (void)testImport
 {
     User *user = [User importFromDictionary:@{
+                                              @"id": @(100),
                                               @"name": @"Joseph",
                                               @"age":  @(36),
                                               @"profile_image_url": @"http://0.0.0.0/nyan.png",
-                                              }
-                                 identifier:@(3)];
+                                              }];
     
     XCTAssertEqualObjects(user.name, @"Joseph", @"正しくインポートできていること");
     XCTAssertEqualObjects(user.age,  @(36),     @"正しくインポートできていること");
     
     XCTAssertEqualObjects(user.profileImageURL, @"http://0.0.0.0/nyan.png", @"キー変換が正しく行われた上でインポートできていること");
+}
+
+- (void)testImportList
+{
+    NSArray *users = [User importFromListOfDictionary:@[@{
+                                                            @"id": @(1),
+                                                            @"name": @"Jane",
+                                                            @"age":  @(38),
+                                                            @"profile_image_url": @"http://0.0.0.0/jane.png",
+                                                            },
+                                                        @{
+                                                            @"id": @(2),
+                                                            @"name": @"Judas",
+                                                            @"age":  @(24),
+                                                            @"profile_image_url": @"http://0.0.0.0/judas.png",
+                                                            }]];
+    
+    XCTAssertEqualObjects([users[0] ID],   @(1),    @"正しくインポートできていること");
+    XCTAssertEqualObjects([users[0] name], @"Jane", @"正しくインポートできていること");
+    XCTAssertEqualObjects([users[0] age],  @(38),   @"正しくインポートできていること");
+    
+    XCTAssertEqualObjects([users[1] ID],   @(2),     @"正しくインポートできていること");
+    XCTAssertEqualObjects([users[1] name], @"Judas", @"正しくインポートできていること");
+    XCTAssertEqualObjects([users[1] age],  @(24),    @"正しくインポートできていること");
 }
 
 - (void)testScopeLifetime
