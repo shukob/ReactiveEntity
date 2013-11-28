@@ -22,6 +22,10 @@
 		15E9D72E183C691E005648D7 /* RESynchronizedScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D72D183C691E005648D7 /* RESynchronizedScope.m */; };
 		15E9D731183C845C005648D7 /* REKeyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D730183C845C005648D7 /* REKeyTranslator.m */; };
 		15E9D732183C845C005648D7 /* REKeyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D730183C845C005648D7 /* REKeyTranslator.m */; };
+		AE65FC1018479BD90035E2AE /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC0C18479BD90035E2AE /* Article.m */; };
+		AE65FC1218479BD90035E2AE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC0E18479BD90035E2AE /* Tag.m */; };
+		AE65FC1518479BF70035E2AE /* REAssociationMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC1418479BF70035E2AE /* REAssociationMapper.m */; };
+		AE65FC1618479BF70035E2AE /* REAssociationMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC1418479BF70035E2AE /* REAssociationMapper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,12 @@
 		15E9D72D183C691E005648D7 /* RESynchronizedScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESynchronizedScope.m; sourceTree = "<group>"; };
 		15E9D72F183C845C005648D7 /* REKeyTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REKeyTranslator.h; sourceTree = "<group>"; };
 		15E9D730183C845C005648D7 /* REKeyTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REKeyTranslator.m; sourceTree = "<group>"; };
+		AE65FC0B18479BD90035E2AE /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
+		AE65FC0C18479BD90035E2AE /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
+		AE65FC0D18479BD90035E2AE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		AE65FC0E18479BD90035E2AE /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		AE65FC1318479BF70035E2AE /* REAssociationMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REAssociationMapper.h; sourceTree = "<group>"; };
+		AE65FC1418479BF70035E2AE /* REAssociationMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REAssociationMapper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +170,8 @@
 				15E9D71F183C4191005648D7 /* REAbstractEntity.m */,
 				15E9D72F183C845C005648D7 /* REKeyTranslator.h */,
 				15E9D730183C845C005648D7 /* REKeyTranslator.m */,
+				AE65FC1318479BF70035E2AE /* REAssociationMapper.h */,
+				AE65FC1418479BF70035E2AE /* REAssociationMapper.m */,
 				15E9D725183C4900005648D7 /* REEntityModel.h */,
 				15E9D726183C4900005648D7 /* REEntityModel.m */,
 				15E9D72C183C691E005648D7 /* RESynchronizedScope.h */,
@@ -175,6 +187,10 @@
 			children = (
 				15E9D71A183C4165005648D7 /* User.h */,
 				15E9D71B183C4165005648D7 /* User.m */,
+				AE65FC0B18479BD90035E2AE /* Article.h */,
+				AE65FC0C18479BD90035E2AE /* Article.m */,
+				AE65FC0D18479BD90035E2AE /* Tag.h */,
+				AE65FC0E18479BD90035E2AE /* Tag.m */,
 			);
 			name = "Test Classes";
 			sourceTree = "<group>";
@@ -265,6 +281,7 @@
 				15E9D727183C4900005648D7 /* REEntityModel.m in Sources */,
 				15E9D72E183C691E005648D7 /* RESynchronizedScope.m in Sources */,
 				15E9D720183C4191005648D7 /* REAbstractEntity.m in Sources */,
+				AE65FC1518479BF70035E2AE /* REAssociationMapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +289,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE65FC1218479BD90035E2AE /* Tag.m in Sources */,
+				AE65FC1618479BF70035E2AE /* REAssociationMapper.m in Sources */,
+				AE65FC1018479BD90035E2AE /* Article.m in Sources */,
 				15E9D732183C845C005648D7 /* REKeyTranslator.m in Sources */,
 				15E9D707183C3F3D005648D7 /* RadialEntityTests.m in Sources */,
 				15E9D721183C4191005648D7 /* REAbstractEntity.m in Sources */,
