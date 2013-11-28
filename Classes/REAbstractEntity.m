@@ -161,9 +161,11 @@
             [self synchronize];
         }
     } else {
+#if RE_RAISES_WHEN_NOT_DEFINED_ATTRIBUTE_ASSIGNED
         [[NSException exceptionWithName:NSInvalidArgumentException
                                  reason:[NSString stringWithFormat:@"`%@` is not defined in class (%@)", key, self]
                                userInfo:nil] raise];
+#endif
     }
 }
 
