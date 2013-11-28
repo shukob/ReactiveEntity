@@ -21,7 +21,7 @@ static REEntityModel *__defaultEntityModel = nil;
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.variables   = [NSMutableOrderedSet orderedSet];
+        self.variables     = [NSMutableOrderedSet orderedSet];
         self.childrenModel = [NSMutableDictionary dictionary];
     }
     return self;

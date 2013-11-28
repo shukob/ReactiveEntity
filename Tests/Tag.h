@@ -6,13 +6,11 @@
  |=
  */
 
-#import "RadialEntity.h"
+#import "REAbstractEntity.h"
 
-@interface User : REAbstractEntity
+@interface Tag : REAbstractEntity
 
 @property (nonatomic, strong) NSNumber *ID;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSNumber *age;
-@property (nonatomic, strong) NSString *profileImageURL;
 
 @end

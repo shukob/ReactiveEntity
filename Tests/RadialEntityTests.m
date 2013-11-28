@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "RadialEntity.h"
 #import "User.h"
+#import "Article.h"
 
 @interface RadialEntityTests : XCTestCase
 
@@ -97,6 +98,34 @@
     XCTAssertEqualObjects([users[1] ID],   @(2),     @"正しくインポートできていること");
     XCTAssertEqualObjects([users[1] name], @"Judas", @"正しくインポートできていること");
     XCTAssertEqualObjects([users[1] age],  @(24),    @"正しくインポートできていること");
+}
+
+- (void)testImportWithAssociation
+{
+    Article *article = [Article importFromDictionary:@{
+                                                       @"id": @(1),
+                                                       @"title": @"今日のご飯はなんですか？",
+                                                       @"content": @"そろそろ鍋にしたい",
+                                                       @"author": @{
+                                                               @"id": @(1),
+                                                               @"name": @"Jane",
+                                                               @"age":  @(38),
+                                                               @"profile_image_url": @"http://0.0.0.0/jane.png",
+                                                       },
+                                                       @"tags": @[
+                                                               @{
+                                                                   @"id": @(1),
+                                                                   @"name": @"日記",
+                                                                   },
+                                                               @{
+                                                                   @"id": @(2),
+                                                                   @"name": @"雑事",
+                                                                   },
+                                                               ],
+                                                       }];
+    
+    XCTAssertEqualObjects(article.author.name,   @"Jane", @"辞書型をインポートした際に関連する単数のエンティティクラスが自動的に生成・保存されること");
+    XCTAssertEqualObjects([article.tags[0] name], @"日記", @"辞書型をインポートした際に関連する複数のエンティティクラスが自動的に生成・保存されること");
 }
 
 - (void)testScopeLifetime

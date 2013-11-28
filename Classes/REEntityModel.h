@@ -7,6 +7,7 @@
  */
 
 #import "REKeyTranslator.h"
+#import "REAssociationMapper.h"
 
 @interface REEntityModel : NSObject
 
@@ -17,6 +18,7 @@
 - (NSUInteger)variableIndexForKey:(NSString *)key;
 - (NSUInteger)numberOfVariables;
 
-@property (nonatomic, strong) REKeyTranslator *massAssignmentKeyTranslator;
+@property (nonatomic, strong) REKeyTranslator      *massAssignmentKeyTranslator;
+@property (nonatomic, strong) REAssociationMapper *associationMapper;
 
 @end

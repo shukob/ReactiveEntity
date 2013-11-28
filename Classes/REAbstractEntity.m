@@ -70,6 +70,10 @@
         REKeyTranslator *massAssignmentKeyTranslator = [[REKeyTranslator alloc] init];
         [self keyTranslatorForMassAssignment:massAssignmentKeyTranslator];
         [self entityModel].massAssignmentKeyTranslator = massAssignmentKeyTranslator;
+        
+        REAssociationMapper *associationMapper = [[REAssociationMapper alloc] init];
+        [self associationMapper:associationMapper];
+        [self entityModel].associationMapper = associationMapper;
     }
 }
 
@@ -158,7 +162,8 @@
         }
     } else {
         [[NSException exceptionWithName:NSInvalidArgumentException
-                                 reason:nil userInfo:nil] raise];
+                                 reason:[NSString stringWithFormat:@"`%@` is not defined in class (%@)", key, self]
+                               userInfo:nil] raise];
     }
 }
 
@@ -265,10 +270,20 @@
 
 - (void)assignAttributesFromDictionary:(NSDictionary *)attributes
 {
-    REKeyTranslator *translator = [self.class entityModel].massAssignmentKeyTranslator;
+    REKeyTranslator      *translator         = [self.class entityModel].massAssignmentKeyTranslator;
+    REAssociationMapper *associationMapper = [self.class entityModel].associationMapper;
     for (NSString *key in attributes.allKeys) {
         id value = attributes[key];
         id translatedKey = [translator translateKeyForSourceKey:key];
+        Class entityClass = [associationMapper entityClassForKey:key];
+        if (entityClass) {
+            if ([value isKindOfClass:[NSArray class]]) {
+                value = [entityClass importFromListOfDictionary:value];
+                
+            } else if([value isKindOfClass:[NSDictionary class]]) {
+                value = [entityClass importFromDictionary:value];
+            }
+        }
         [self setValue:value forKey:translatedKey synchronize:NO];
     }
     [self synchronize];
@@ -285,6 +300,15 @@
         [buffer addObject:[self importFromDictionary:attribute]];
     }
     return buffer.copy;
+}
+
+@end
+
+@implementation REAbstractEntity (Association)
+
+
++ (void)associationMapper:(REAssociationMapper *)mapper
+{
 }
 
 @end

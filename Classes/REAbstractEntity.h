@@ -9,6 +9,7 @@
 #import "REContext.h"
 #import "REEntityModel.h"
 #import "REKeyTranslator.h"
+#import "REAssociationMapper.h"
 
 @interface REAbstractEntity : NSObject
 
@@ -38,5 +39,11 @@
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator;
 
 + (NSArray *)importFromListOfDictionary:(NSArray *)listOfDictionary;
+
+@end
+
+@interface REAbstractEntity (Association)
+
++ (void)associationMapper:(REAssociationMapper *)mapper;
 
 @end
