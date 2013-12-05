@@ -88,6 +88,8 @@
         objc_property_t property = properties[index];
         [self defineAccessorsForProperty:property];
     }
+
+    free(properties);
 }
 
 + (void)defineAccessorsForProperty:(objc_property_t)property
