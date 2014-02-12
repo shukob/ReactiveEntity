@@ -1,6 +1,7 @@
-[![Stories in Ready](https://badge.waffle.io/limbate/reactiveentity.png?label=ready)](https://waffle.io/limbate/reactiveentity)
 Reactive Entity
 ============
+
+[![Stories in Ready](https://badge.waffle.io/limbate/reactiveentity.png?label=ready)](https://waffle.io/limbate/reactiveentity)
 
 Reactive Entity is Memory-based Reactive ValueObject Library.  
 
