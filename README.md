@@ -80,22 +80,6 @@ Example:
     XCTAssertEqualObjects(name, @"Jack"); // Modified
 }
 
-- (void)testImport
-{
-    User *user = [User importFromDictionary:@{
-                                              @"name": @"Joseph",
-                                              @"age":  @(36),
-                                              @"profile_image_url": @"http://0.0.0.0/nyan.png",
-                                              }
-                                 identifier:@(3)];
-    
-    XCTAssertEqualObjects(user.name, @"Joseph");
-    XCTAssertEqualObjects(user.age,  @(36));
-    
-    // Mass-assignment Key Translate
-    XCTAssertEqualObjects(user.profileImageURL);
-}
-
 - (void)testDataFlowLifetime
 {
     User *user = [User entityWithIdentifier:@(3)];
@@ -124,6 +108,22 @@ Example:
     user.age = @(12);
     
     XCTAssertEqual(counter, 2); // This is not typo.
+}
+
+- (void)testImport
+{
+    User *user = [User importFromDictionary:@{
+                                              @"name": @"Joseph",
+                                              @"age":  @(36),
+                                              @"profile_image_url": @"http://0.0.0.0/nyan.png",
+                                              }
+                                 identifier:@(3)];
+    
+    XCTAssertEqualObjects(user.name, @"Joseph");
+    XCTAssertEqualObjects(user.age,  @(36));
+    
+    // Mass-assignment Key Translate
+    XCTAssertEqualObjects(user.profileImageURL);
 }
 
 @end
