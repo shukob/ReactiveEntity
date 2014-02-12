@@ -6,9 +6,9 @@
  |=
  */
 
-#import "REAbstractEntity.h"
+#import "REReactiveEntity.h"
 
-@interface Tag : REAbstractEntity
+@interface Tag : REReactiveEntity
 
 @property (nonatomic, strong) NSNumber *ID;
 @property (nonatomic, strong) NSString *name;

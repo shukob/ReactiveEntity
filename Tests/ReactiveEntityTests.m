@@ -1,21 +1,21 @@
 //
-//  RadialEntityTests.m
-//  RadialEntityTests
+//  ReactiveEntityTests.m
+//  ReactiveEntityTests
 //
 //  Created by irony on 2013/11/20.
 //  Copyright (c) 2013年 Limbate Inc. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
-#import "RadialEntity.h"
+#import "ReactiveEntity.h"
 #import "User.h"
 #import "Article.h"
 
-@interface RadialEntityTests : XCTestCase
+@interface ReactiveEntityTests : XCTestCase
 
 @end
 
-@implementation RadialEntityTests
+@implementation ReactiveEntityTests
 
 - (void)setUp
 {
@@ -47,7 +47,7 @@
     User *user = [User entityWithIdentifier:@(2)];
     user.name = name;
     
-    [user synchronizedScopeWithOwner:self block:^(id owner) {
+    [user reactiveDataFlowWithOwner:self block:^(id owner) {
         name = user.name;
     }];
     
@@ -130,7 +130,7 @@
 
 - (void)testScopeLifetime
 {
-    User *user = [User entityWithIdentifier:@(2)];
+    User *user = [User entityWithIdentifier:@(3)];
     user.name = @"Jacob";
     user.age  = @(10);
     
@@ -139,21 +139,79 @@
     @autoreleasepool {
         NSObject *object = [[NSObject alloc] init];
         
-        [user synchronizedScopeWithOwner:object block:^(NSObject *owner) {
+        [user reactiveDataFlowWithOwner:object block:^(NSObject *owner) {
             NSLog(@"%@", owner);
             counter++;
         }];
         
-        XCTAssertEqual(counter, 1);
+        XCTAssertEqual(counter, (NSInteger)1);
         
         user.age = @(11);
         
-        XCTAssertEqual(counter, 2);
+        XCTAssertEqual(counter, (NSInteger)2);
     }
     
     user.age = @(12);
     
-    XCTAssertEqual(counter, 2, @"owner が解放され、synchronized ブロックが呼ばれなくなること");
+    XCTAssertEqual(counter, (NSInteger)2, @"owner が解放され、ブロックが呼ばれなくなること");
+}
+
+- (void)testUnlinkDataFlow
+{
+    User *user = [User entityWithIdentifier:@(3)];
+    user.name = @"Julia";
+    user.age  = @(10);
+    
+    __block NSInteger counter = 0;
+    NSObject *object = [[NSObject alloc] init];
+    
+    @autoreleasepool {
+        REReactiveDataFlow *dataFlow = [user reactiveDataFlowWithOwner:object block:^(id owner) {
+            counter++;
+        }];
+        
+        XCTAssertEqual(counter, (NSInteger)1);
+        
+        user.age = @(11);
+        
+        XCTAssertEqual(counter, (NSInteger)2);
+        
+        [dataFlow unlink];
+    }
+    
+    user.age = @(12);
+    
+    XCTAssertEqual(counter, (NSInteger)2, @"データフローを破棄したとき、ブロックが呼ばれなくなること");
+}
+
+- (void)testUnlinkDataFlowWithName
+{
+    User *user = [User entityWithIdentifier:@(4)];
+    user.name = @"Jet";
+    user.age  = @(10);
+    
+    __block NSInteger counter = 0;
+    NSObject *object = [[NSObject alloc] init];
+    
+    [user reactiveDataFlowWithOwner:object name:__FUNCTION__ block:^(NSObject *owner) {
+        counter++;
+    }];
+    
+    XCTAssertEqual(counter, (NSInteger)1);
+    
+    user.age = @(11);
+    
+    XCTAssertEqual(counter, (NSInteger)2);
+    
+    [user reactiveDataFlowWithOwner:object name:__FUNCTION__ block:^(NSObject *owner) {
+        counter--;
+    }];
+    
+    XCTAssertEqual(counter, (NSInteger)1);
+    
+    user.age = @(12);
+    
+    XCTAssertEqual(counter, (NSInteger)0, @"同名のデータフローを設定したとき、古いデータフローが破棄されること");
 }
 
 @end

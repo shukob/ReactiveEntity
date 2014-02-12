@@ -6,22 +6,21 @@
  |=
  */
 
-#import "REAbstractEntity.h"
+#import "REReactiveEntity.h"
 #import <objc/runtime.h>
-#import "RESynchronizedScope.h"
 
-@interface REAbstractEntity ()
+@interface REReactiveEntity ()
 @property (nonatomic, copy)   id<NSCopying>   identifier;
 @property (nonatomic, strong) NSMutableArray *variables;
-@property (nonatomic, strong) NSHashTable    *synchronizedScopes;
+@property (nonatomic, strong) NSHashTable    *reactiveDataFlows;
 @end
 
-@implementation REAbstractEntity
+@implementation REReactiveEntity
 
 - (id)init
 {
     if (self = [super init]) {
-        self.synchronizedScopes = [NSHashTable weakObjectsHashTable];
+        self.reactiveDataFlows = [NSHashTable weakObjectsHashTable];
     }
     return self;
 }
@@ -64,7 +63,7 @@
 {
     [super initialize];
     
-    if (self != [REAbstractEntity class]) {
+    if (self != [REReactiveEntity class]) {
         [self defineAccessorsForProperties];
         
         REKeyTranslator *massAssignmentKeyTranslator = [[REKeyTranslator alloc] init];
@@ -109,26 +108,42 @@
 
 #pragma mark -
 
-- (void)synchronizedScopeWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void (^)(id owner))block
+- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void (^)(id owner))block
 {
-    __weak id weakOwner = owner;
-    void(^caller)(void) = ^{ block(weakOwner); };
-    RESynchronizedScope *scope = [[RESynchronizedScope alloc] initWithBlock:caller queue:queue];
-    NSString *referenceKey = [NSString stringWithFormat:@"__synchronizedScope_%ld", (long)self];
-    objc_setAssociatedObject(owner, [referenceKey cStringUsingEncoding:NSASCIIStringEncoding], scope, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self.synchronizedScopes addObject:scope];
-    caller();
+    return [self reactiveDataFlowWithOwner:owner name:nil queue:queue block:block];
 }
 
-- (void)synchronizedScopeWithOwner:(id)owner block:(void (^)(id owner))block
+- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner block:(void (^)(id owner))block
 {
-    [self synchronizedScopeWithOwner:owner queue:nil block:block];
+    return [self reactiveDataFlowWithOwner:owner queue:nil block:block];
 }
 
-- (void)synchronize
+- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner name:(const void *)name block:(void(^)(id owner))block
 {
-    for (RESynchronizedScope *scope in self.synchronizedScopes) {
-        [scope execute];
+    return [self reactiveDataFlowWithOwner:owner name:name queue:nil block:block];
+}
+
+- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner name:(const void *)name queue:(dispatch_queue_t)queue block:(void(^)(id owner))block
+{
+    NSString *nameObject = [NSString stringWithCString:name ?: "" encoding:NSASCIIStringEncoding];
+    REReactiveDataFlow *dataFlow = [[REReactiveDataFlow alloc] initWithOwner:owner name:nameObject queue:queue block:block];
+    if (nameObject.length > 0) {
+        for (REReactiveDataFlow *existsDataFlow in self.reactiveDataFlows.copy) {
+            if ([existsDataFlow.name isEqualToString:nameObject]) {
+                [existsDataFlow unlink];
+                [self.reactiveDataFlows removeObject:existsDataFlow];
+            }
+        }
+    }
+    [self.reactiveDataFlows addObject:dataFlow];
+    block(owner);
+    return dataFlow;
+}
+
+- (void)push
+{
+    for (REReactiveDataFlow *scope in self.reactiveDataFlows) {
+        [scope push];
     }
 }
 
@@ -151,16 +166,16 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
-    [self setValue:value forKey:key synchronize:YES];
+    [self setValue:value forKey:key push:YES];
 }
 
-- (void)setValue:(id)value forKey:(NSString *)key synchronize:(BOOL)synchronize
+- (void)setValue:(id)value forKey:(NSString *)key push:(BOOL)push
 {
     REEntityModel *entityModel = [self.class entityModel];
     if ([entityModel hasVariableForKey:key]) {
         self.variables[[entityModel variableIndexForKey:key]] = value ?: [NSNull null];
-        if (synchronize) {
-            [self synchronize];
+        if (push) {
+            [self push];
         }
     } else {
 #if RE_RAISES_WHEN_NOT_DEFINED_ATTRIBUTE_ASSIGNED
@@ -261,13 +276,13 @@
 
 @end
 
-@implementation REAbstractEntity (MassAssignment)
+@implementation REReactiveEntity (MassAssignment)
 
 + (instancetype)importFromDictionary:(NSDictionary *)attributes
 {
     REKeyTranslator *translator = [self.class entityModel].massAssignmentKeyTranslator;
     NSString *identifierKey = [translator restoreSourceKeyForTranslatedKey:[self identifierKey]] ?: [self identifierKey];
-    REAbstractEntity *entity = [self entityWithIdentifier:attributes[identifierKey]];
+    REReactiveEntity *entity = [self entityWithIdentifier:attributes[identifierKey]];
     [entity assignAttributesFromDictionary:attributes];
     return entity;
 }
@@ -288,9 +303,9 @@
                 value = [entityClass importFromDictionary:value];
             }
         }
-        [self setValue:value forKey:translatedKey synchronize:NO];
+        [self setValue:value forKey:translatedKey push:NO];
     }
-    [self synchronize];
+    [self push];
 }
 
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
@@ -308,7 +323,7 @@
 
 @end
 
-@implementation REAbstractEntity (Association)
+@implementation REReactiveEntity (Association)
 
 
 + (void)associationMapper:(REAssociationMapper *)mapper

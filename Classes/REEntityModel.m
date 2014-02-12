@@ -7,7 +7,7 @@
  */
 
 #import "REEntityModel.h"
-#import "REAbstractEntity.h"
+#import "REReactiveEntity.h"
 
 static REEntityModel *__defaultEntityModel = nil;
 

@@ -6,9 +6,9 @@
  |=
  */
 
-#import "RadialEntity.h"
+#import "ReactiveEntity.h"
 
-@interface User : REAbstractEntity
+@interface User : REReactiveEntity
 
 @property (nonatomic, strong) NSNumber *ID;
 @property (nonatomic, strong) NSString *name;

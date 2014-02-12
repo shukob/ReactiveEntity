@@ -7,7 +7,7 @@
  */
 
 #import "REContext.h"
-#import "REAbstractEntity.h"
+#import "REReactiveEntity.h"
 
 static REContext *__defaultContext = nil;
 
@@ -48,7 +48,7 @@ static REContext *__defaultContext = nil;
 
 #pragma mark -
 
-- (REAbstractEntity *)entityWithIdentifier:(id<NSCopying>)identifier class:(__unsafe_unretained Class)klass
+- (REReactiveEntity *)entityWithIdentifier:(id<NSCopying>)identifier class:(__unsafe_unretained Class)klass
 {
     return self.entities[identifier] ?: (self.entities[identifier] = [[klass alloc] initWithIdentifier:identifier]);
 }

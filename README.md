@@ -1,13 +1,13 @@
-Radial Entity
+Reactive Entity
 ============
 
-Radial Entity is Memory-based ValueObject Library.  
+Reactive Entity is Memory-based ValueObject Library.  
 
 Example:
 
 ```  objective-c
 
-#import "RadialEntity.h"
+#import "ReactiveEntity.h"
 
 @interface User : REAbstractEntity
 @property (nonatomic, strong) NSString *name;
@@ -35,10 +35,10 @@ Example:
 
 ``` objective-c
 
-@interface RadialEntityTests : XCTestCase
+@interface ReactiveEntityTests : XCTestCase
 @end
 
-@implementation RadialEntityTests
+@implementation ReactiveEntityTests
 
 - (void)testAssign
 {
@@ -122,13 +122,13 @@ Example:
 ## Getting Started
 
 ``` Podfile
-pod 'RadialEntity', git: 'https://github.com/Limbate/RadialEntity.git'
+pod 'ReactiveEntity', git: 'https://github.com/Limbate/ReactiveEntity.git'
 ```
 
 ## License
 
-RadialEntity is licensed under the terms of the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). Please see the [LICENSE](LICENSE) file for full details.
+ReactiveEntity is licensed under the terms of the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). Please see the [LICENSE](LICENSE) file for full details.
 
 ## Credits
 
-RadialEntity is written by [うーねこ](http://twitter.com/ne_ko_o).
+ReactiveEntity is written by [うーねこ](http://twitter.com/ne_ko_o).

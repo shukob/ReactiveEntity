@@ -7,7 +7,7 @@
  */
 
 #import "REAssociationMapper.h"
-#import "REAbstractEntity.h"
+#import "REReactiveEntity.h"
 
 @interface REAssociationMapper ()
 @property (nonatomic, strong) NSMutableDictionary *rules;
