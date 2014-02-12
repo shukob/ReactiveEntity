@@ -7,15 +7,23 @@
  */
 
 #import "Tag.h"
+#import "Article.h"
 
 @implementation Tag
 
-@dynamic ID, name;
+@dynamic ID, name, articles;
 
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
 {
     [translator addRuleForSourceKey:@"id"
                       translatedKey:@"ID"];
+}
+
++ (void)associationMapper:(REAssociationMapper *)mapper
+{
+    [mapper registerAssociatedEntityCollectionForKey:@"articles"
+                                         entityClass:[Article class]
+                                          foreignKey:@"tags"];
 }
 
 @end

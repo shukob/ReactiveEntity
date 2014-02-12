@@ -9,22 +9,19 @@
 #import "REContext.h"
 #import "REEntityModel.h"
 #import "REKeyTranslator.h"
-#import "REAssociationMapper.h"
-#import "REReactiveDataFlow.h"
+#import "REDependence.h"
+#import "REReactiveObject.h"
 
-@interface REReactiveEntity : NSObject
+@class REAssociationMapper;
+
+@interface REReactiveEntity : REReactiveObject
 
 - (instancetype)initWithIdentifier:(id <NSCopying>)identifier;
 + (instancetype)entityWithIdentifier:(id <NSCopying>)identifier;
 + (NSString *)entityName;
++ (NSSet *)allEntities;
 
 - (id <NSCopying>)identifier;
-
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner block:(void(^)(id owner))block;
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void(^)(id owner))block;
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner name:(const void *)name block:(void(^)(id owner))block;
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner name:(const void *)name queue:(dispatch_queue_t)queue block:(void(^)(id owner))block;
-- (void)push;
 
 - (void)setValue:(id)value forKey:(NSString *)key push:(BOOL)push;
 
@@ -48,12 +45,5 @@
 @interface REReactiveEntity (Association)
 
 + (void)associationMapper:(REAssociationMapper *)mapper;
-
-@end
-
-@interface NSObject (ReactiveEntity)
-
-- (NSArray *)reactiveDataFlows;
-- (REReactiveDataFlow *)reactiveDataFlowWithName:(NSString *)name;
 
 @end

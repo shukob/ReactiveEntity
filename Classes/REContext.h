@@ -7,6 +7,8 @@
  */
 
 @class REReactiveEntity;
+@class REReactiveCollectionAssociation;
+@class REAssociatedCollection;
 
 @interface REContext : NSObject
 
@@ -14,5 +16,19 @@
 - (instancetype)initWithName:(NSString *)name;
 - (instancetype)childContextWithName:(NSString *)name;
 - (REReactiveEntity *)entityWithIdentifier:(id <NSCopying>)identifier class:(Class)klass;
+- (NSHashTable *)allEntities;
+
+- (REReactiveCollectionAssociation *)collectionAssociationWithCollection:(REAssociatedCollection *)collection
+                                                            referenceKey:(NSString *)referenceKey
+                                                         otherCollection:(REAssociatedCollection *)otherCollection
+                                                              foreignKey:(NSString *)foreignKey;
+
+- (void)registerCollectionAssociationWithCollection:(REAssociatedCollection *)collection
+                                       referenceKey:(NSString *)referenceKey
+                                    otherCollection:(REAssociatedCollection *)otherCollection
+                                         foreignKey:(NSString *)foreignKey;
+
+- (void)clearAllEntities;
+- (void)clearAllEntitiesRecursive;
 
 @end

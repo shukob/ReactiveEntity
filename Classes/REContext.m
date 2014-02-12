@@ -8,6 +8,7 @@
 
 #import "REContext.h"
 #import "REReactiveEntity.h"
+#import "REReactiveCollectionAssociation.h"
 
 static REContext *__defaultContext = nil;
 
@@ -15,6 +16,8 @@ static REContext *__defaultContext = nil;
 @property (nonatomic, copy)   NSString *name;
 @property (nonatomic, strong) NSMutableDictionary *childContexts;
 @property (nonatomic, strong) NSMutableDictionary *entities;
+@property (nonatomic, strong) NSMutableDictionary *collectionAssociations;
+@property (nonatomic, strong) NSHashTable *allEntities;
 @end
 
 @implementation REContext
@@ -24,6 +27,8 @@ static REContext *__defaultContext = nil;
     if (self = [super init]) {
         self.childContexts = [NSMutableDictionary dictionary];
         self.entities      = [NSMutableDictionary dictionary];
+        self.allEntities   = [NSHashTable weakObjectsHashTable];
+        self.collectionAssociations = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -50,7 +55,44 @@ static REContext *__defaultContext = nil;
 
 - (REReactiveEntity *)entityWithIdentifier:(id<NSCopying>)identifier class:(__unsafe_unretained Class)klass
 {
-    return self.entities[identifier] ?: (self.entities[identifier] = [[klass alloc] initWithIdentifier:identifier]);
+    if (self.entities[identifier] == nil) {
+        id entity = [[klass alloc] initWithIdentifier:identifier];
+        self.entities[identifier] = entity;
+        [self.allEntities addObject:entity];
+        return entity;
+        
+    } else {
+        return self.entities[identifier];
+    }
+}
+
+- (REReactiveCollectionAssociation *)collectionAssociationWithCollection:(REAssociatedCollection *)collection referenceKey:(NSString *)referenceKey otherCollection:(REAssociatedCollection *)otherCollection foreignKey:(NSString *)foreignKey
+{
+    NSSet *key = [NSSet setWithObjects:@[ foreignKey, collection ], @[ referenceKey, otherCollection ], nil];
+    return self.collectionAssociations[key];
+}
+
+- (void)registerCollectionAssociationWithCollection:(REAssociatedCollection *)collection referenceKey:(NSString *)referenceKey otherCollection:(REAssociatedCollection *)otherCollection foreignKey:(NSString *)foreignKey
+{
+    NSSet *key = [NSSet setWithObjects:@[ foreignKey, collection ], @[ referenceKey, otherCollection ], nil];
+    self.collectionAssociations[key] = [[REReactiveCollectionAssociation alloc] initWithCollection:collection otherCollection:otherCollection];
+}
+
+#pragma mark -
+
+- (void)clearAllEntities
+{
+    [self.allEntities removeAllObjects];
+    [self.entities removeAllObjects];
+}
+
+- (void)clearAllEntitiesRecursive
+{
+    [self clearAllEntities];
+    
+    for (REContext *childContext in [self.childContexts allValues]) {
+        [childContext clearAllEntitiesRecursive];
+    }
 }
 
 @end

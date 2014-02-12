@@ -6,24 +6,15 @@
  |=
  */
 
-#import "REReactiveEntity.h"
+#import "ReactiveEntity.h"
 #import <objc/runtime.h>
 
 @interface REReactiveEntity ()
 @property (nonatomic, copy)   id<NSCopying>   identifier;
 @property (nonatomic, strong) NSMutableArray *variables;
-@property (nonatomic, strong) NSHashTable    *reactiveDataFlows;
 @end
 
 @implementation REReactiveEntity
-
-- (id)init
-{
-    if (self = [super init]) {
-        self.reactiveDataFlows = [NSHashTable weakObjectsHashTable];
-    }
-    return self;
-}
 
 - (instancetype)initWithIdentifier:(id<NSCopying>)identifier
 {
@@ -59,6 +50,11 @@
     return NSStringFromClass(self);
 }
 
++ (NSSet *)allEntities
+{
+    return [[self context] allEntities].setRepresentation;
+}
+
 + (void)initialize
 {
     [super initialize];
@@ -87,7 +83,7 @@
         objc_property_t property = properties[index];
         [self defineAccessorsForProperty:property];
     }
-
+    
     free(properties);
 }
 
@@ -108,57 +104,37 @@
 
 #pragma mark -
 
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner queue:(dispatch_queue_t)queue block:(void (^)(id owner))block
-{
-    return [self reactiveDataFlowWithOwner:owner name:nil queue:queue block:block];
-}
-
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner block:(void (^)(id owner))block
-{
-    return [self reactiveDataFlowWithOwner:owner queue:nil block:block];
-}
-
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner name:(const void *)name block:(void(^)(id owner))block
-{
-    return [self reactiveDataFlowWithOwner:owner name:name queue:nil block:block];
-}
-
-- (REReactiveDataFlow *)reactiveDataFlowWithOwner:(id)owner name:(const void *)name queue:(dispatch_queue_t)queue block:(void(^)(id owner))block
-{
-    NSString *nameObject = [NSString stringWithCString:name ?: "" encoding:NSASCIIStringEncoding];
-    REReactiveDataFlow *dataFlow = [[REReactiveDataFlow alloc] initWithOwner:owner name:nameObject queue:queue block:block];
-    if (nameObject.length > 0) {
-        for (REReactiveDataFlow *existsDataFlow in self.reactiveDataFlows.copy) {
-            if ([existsDataFlow.name isEqualToString:nameObject]) {
-                [existsDataFlow unlink];
-                [self.reactiveDataFlows removeObject:existsDataFlow];
-            }
-        }
-    }
-    [self.reactiveDataFlows addObject:dataFlow];
-    block(owner);
-    return dataFlow;
-}
-
-- (void)push
-{
-    for (REReactiveDataFlow *scope in self.reactiveDataFlows) {
-        [scope push];
-    }
-}
-
-#pragma mark -
-
 - (id)valueForKey:(NSString *)key
 {
-    REEntityModel *entityModel = [self.class entityModel];
+    REEntityModel       *entityModel       = [self.class entityModel];
+    REAssociationMapper *associationMapper = entityModel.associationMapper;
+    
     if ([entityModel hasVariableForKey:key]) {
-        id value = self.variables[[entityModel variableIndexForKey:key]];
+        REAssociationMapping *mapping = [associationMapper mappingForKey:key];
+        
+        NSUInteger index = [entityModel variableIndexForKey:key];
+        id value = self.variables[index];
+        
         if ([value isKindOfClass:[NSNull class]]) {
-            return nil;
-        } else {
+            value = nil;
+        }
+        
+        if (value) {
             return value;
         }
+        
+        if (mapping && [mapping isKindOfClass:[REAssociationMappingCollection class]]) {
+            NSString *foreignKey = [(REAssociationMappingCollection *)mapping foreignKey];
+            __block REAssociatedCollection *collection = [[REAssociatedCollection alloc] initWithOwner:self
+                                                                                          referenceKey:key
+                                                                                           entityClass:mapping.entityClass
+                                                                                            foreignKey:foreignKey];
+            self.variables[index] = collection;
+            return collection;
+        }
+        
+        return nil;
+        
     } else {
         return [super valueForKey:key];
     }
@@ -289,22 +265,27 @@
 
 - (void)assignAttributesFromDictionary:(NSDictionary *)attributes
 {
-    REKeyTranslator      *translator         = [self.class entityModel].massAssignmentKeyTranslator;
+    REKeyTranslator     *translator        = [self.class entityModel].massAssignmentKeyTranslator;
     REAssociationMapper *associationMapper = [self.class entityModel].associationMapper;
+    
     for (NSString *key in attributes.allKeys) {
         id value = attributes[key];
         id translatedKey = [translator translateKeyForSourceKey:key];
-        Class entityClass = [associationMapper entityClassForKey:key];
-        if (entityClass) {
+        
+        REAssociationMapping *mapping = [associationMapper mappingForKey:key];
+        
+        if (mapping && [mapping isKindOfClass:[REAssociationMappingEntity class]]) {
+            REAssociationMappingEntity *entityMapping = (id)mapping;
             if ([value isKindOfClass:[NSArray class]]) {
-                value = [entityClass importFromListOfDictionary:value];
+                value = [entityMapping.entityClass importFromListOfDictionary:value];
                 
             } else if([value isKindOfClass:[NSDictionary class]]) {
-                value = [entityClass importFromDictionary:value];
+                value = [entityMapping.entityClass importFromDictionary:value];
             }
         }
         [self setValue:value forKey:translatedKey push:NO];
     }
+    
     [self push];
 }
 

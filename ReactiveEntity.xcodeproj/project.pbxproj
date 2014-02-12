@@ -19,9 +19,13 @@
 		15E9D721183C4191005648D7 /* REReactiveEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D71F183C4191005648D7 /* REReactiveEntity.m */; };
 		15E9D724183C435D005648D7 /* REContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D723183C435D005648D7 /* REContext.m */; };
 		15E9D727183C4900005648D7 /* REEntityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D726183C4900005648D7 /* REEntityModel.m */; };
-		15E9D72E183C691E005648D7 /* REReactiveDataFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D72D183C691E005648D7 /* REReactiveDataFlow.m */; };
+		15E9D72E183C691E005648D7 /* REDependence.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D72D183C691E005648D7 /* REDependence.m */; };
 		15E9D731183C845C005648D7 /* REKeyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D730183C845C005648D7 /* REKeyTranslator.m */; };
 		15E9D732183C845C005648D7 /* REKeyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E9D730183C845C005648D7 /* REKeyTranslator.m */; };
+		AE3D8B5518AB2D81007BC0EF /* REReactiveCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3D8B5418AB2D81007BC0EF /* REReactiveCollection.m */; };
+		AE3D8B5818AB560B007BC0EF /* REReactiveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3D8B5718AB560B007BC0EF /* REReactiveObject.m */; };
+		AE3D8B5B18ABD987007BC0EF /* REReactiveCollectionAssociation.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3D8B5A18ABD987007BC0EF /* REReactiveCollectionAssociation.m */; };
+		AE3D8B5E18ABEFA4007BC0EF /* REAssociatedCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3D8B5D18ABEFA4007BC0EF /* REAssociatedCollection.m */; };
 		AE65FC1018479BD90035E2AE /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC0C18479BD90035E2AE /* Article.m */; };
 		AE65FC1218479BD90035E2AE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC0E18479BD90035E2AE /* Tag.m */; };
 		AE65FC1518479BF70035E2AE /* REAssociationMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC1418479BF70035E2AE /* REAssociationMapper.m */; };
@@ -69,10 +73,18 @@
 		15E9D723183C435D005648D7 /* REContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REContext.m; sourceTree = "<group>"; };
 		15E9D725183C4900005648D7 /* REEntityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REEntityModel.h; sourceTree = "<group>"; };
 		15E9D726183C4900005648D7 /* REEntityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REEntityModel.m; sourceTree = "<group>"; };
-		15E9D72C183C691E005648D7 /* REReactiveDataFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REReactiveDataFlow.h; sourceTree = "<group>"; };
-		15E9D72D183C691E005648D7 /* REReactiveDataFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REReactiveDataFlow.m; sourceTree = "<group>"; };
+		15E9D72C183C691E005648D7 /* REDependence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REDependence.h; sourceTree = "<group>"; };
+		15E9D72D183C691E005648D7 /* REDependence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REDependence.m; sourceTree = "<group>"; };
 		15E9D72F183C845C005648D7 /* REKeyTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REKeyTranslator.h; sourceTree = "<group>"; };
 		15E9D730183C845C005648D7 /* REKeyTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REKeyTranslator.m; sourceTree = "<group>"; };
+		AE3D8B5318AB2D81007BC0EF /* REReactiveCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REReactiveCollection.h; sourceTree = "<group>"; };
+		AE3D8B5418AB2D81007BC0EF /* REReactiveCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REReactiveCollection.m; sourceTree = "<group>"; };
+		AE3D8B5618AB560B007BC0EF /* REReactiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REReactiveObject.h; sourceTree = "<group>"; };
+		AE3D8B5718AB560B007BC0EF /* REReactiveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REReactiveObject.m; sourceTree = "<group>"; };
+		AE3D8B5918ABD987007BC0EF /* REReactiveCollectionAssociation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REReactiveCollectionAssociation.h; sourceTree = "<group>"; };
+		AE3D8B5A18ABD987007BC0EF /* REReactiveCollectionAssociation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REReactiveCollectionAssociation.m; sourceTree = "<group>"; };
+		AE3D8B5C18ABEFA4007BC0EF /* REAssociatedCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REAssociatedCollection.h; sourceTree = "<group>"; };
+		AE3D8B5D18ABEFA4007BC0EF /* REAssociatedCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REAssociatedCollection.m; sourceTree = "<group>"; };
 		AE65FC0B18479BD90035E2AE /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		AE65FC0C18479BD90035E2AE /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		AE65FC0D18479BD90035E2AE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
@@ -166,16 +178,24 @@
 			isa = PBXGroup;
 			children = (
 				15E9D711183C3FF2005648D7 /* ReactiveEntity.h */,
+				AE3D8B5618AB560B007BC0EF /* REReactiveObject.h */,
+				AE3D8B5718AB560B007BC0EF /* REReactiveObject.m */,
 				15E9D71E183C4191005648D7 /* REReactiveEntity.h */,
 				15E9D71F183C4191005648D7 /* REReactiveEntity.m */,
+				AE3D8B5318AB2D81007BC0EF /* REReactiveCollection.h */,
+				AE3D8B5418AB2D81007BC0EF /* REReactiveCollection.m */,
+				AE3D8B5C18ABEFA4007BC0EF /* REAssociatedCollection.h */,
+				AE3D8B5D18ABEFA4007BC0EF /* REAssociatedCollection.m */,
+				AE3D8B5918ABD987007BC0EF /* REReactiveCollectionAssociation.h */,
+				AE3D8B5A18ABD987007BC0EF /* REReactiveCollectionAssociation.m */,
+				15E9D72C183C691E005648D7 /* REDependence.h */,
+				15E9D72D183C691E005648D7 /* REDependence.m */,
 				15E9D72F183C845C005648D7 /* REKeyTranslator.h */,
 				15E9D730183C845C005648D7 /* REKeyTranslator.m */,
 				AE65FC1318479BF70035E2AE /* REAssociationMapper.h */,
 				AE65FC1418479BF70035E2AE /* REAssociationMapper.m */,
 				15E9D725183C4900005648D7 /* REEntityModel.h */,
 				15E9D726183C4900005648D7 /* REEntityModel.m */,
-				15E9D72C183C691E005648D7 /* REReactiveDataFlow.h */,
-				15E9D72D183C691E005648D7 /* REReactiveDataFlow.m */,
 				15E9D722183C435D005648D7 /* REContext.h */,
 				15E9D723183C435D005648D7 /* REContext.m */,
 			);
@@ -278,9 +298,13 @@
 			files = (
 				15E9D731183C845C005648D7 /* REKeyTranslator.m in Sources */,
 				15E9D724183C435D005648D7 /* REContext.m in Sources */,
+				AE3D8B5B18ABD987007BC0EF /* REReactiveCollectionAssociation.m in Sources */,
 				15E9D727183C4900005648D7 /* REEntityModel.m in Sources */,
-				15E9D72E183C691E005648D7 /* REReactiveDataFlow.m in Sources */,
+				15E9D72E183C691E005648D7 /* REDependence.m in Sources */,
 				15E9D720183C4191005648D7 /* REReactiveEntity.m in Sources */,
+				AE3D8B5518AB2D81007BC0EF /* REReactiveCollection.m in Sources */,
+				AE3D8B5818AB560B007BC0EF /* REReactiveObject.m in Sources */,
+				AE3D8B5E18ABEFA4007BC0EF /* REAssociatedCollection.m in Sources */,
 				AE65FC1518479BF70035E2AE /* REAssociationMapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

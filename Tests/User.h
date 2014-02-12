@@ -10,9 +10,11 @@
 
 @interface User : REReactiveEntity
 
-@property (nonatomic, strong) NSNumber *ID;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSNumber *age;
-@property (nonatomic, strong) NSString *profileImageURL;
+@property NSNumber *ID;
+@property NSString *name;
+@property NSNumber *age;
+@property NSString *profileImageURL;
+
+@property REAssociatedCollection *articles;
 
 @end

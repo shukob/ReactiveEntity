@@ -6,16 +6,17 @@
  |=
  */
 
-#import "REReactiveEntity.h"
+#import "ReactiveEntity.h"
 #import "User.h"
 #import "Tag.h"
 
 @interface Article : REReactiveEntity
 
-@property (nonatomic, strong) NSNumber *ID;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) User     *author;
-@property (nonatomic, strong) NSArray  *tags;
+@property NSNumber *ID;
+@property NSString *title;
+@property NSString *content;
+@property User     *author;
+
+@property REAssociatedCollection *tags;
 
 @end

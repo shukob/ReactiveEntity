@@ -8,6 +8,7 @@
 
 #import "REEntityModel.h"
 #import "REReactiveEntity.h"
+#import "REAssociationMapper.h"
 
 static REEntityModel *__defaultEntityModel = nil;
 

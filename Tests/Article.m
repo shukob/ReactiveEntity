@@ -20,11 +20,12 @@
 
 + (void)associationMapper:(REAssociationMapper *)mapper
 {
-    [mapper registerEntityClass:[User class]
-                          forKey:@"author"];
+    [mapper registerAssociatedEntityForKey:@"author"
+                               entityClass:[User class]];
     
-    [mapper registerEntityClass:[Tag class]
-                          forKey:@"tags"];
+    [mapper registerAssociatedEntityCollectionForKey:@"tags"
+                                         entityClass:[Tag class]
+                                          foreignKey:@"articles"];
 }
 
 @end

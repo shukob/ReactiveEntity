@@ -1,1 +1,5 @@
 #import "REReactiveEntity.h"
+#import "REReactiveCollection.h"
+#import "REAssociationMapper.h"
+#import "REReactiveCollection.h"
+#import "REAssociatedCollection.h"
