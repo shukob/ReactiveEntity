@@ -1,7 +1,7 @@
 Reactive Entity
 ============
 
-Reactive Entity is Memory-based ValueObject Library.  
+Reactive Entity is Memory-based Reactive ValueObject Library.  
 
 Example:
 
@@ -9,7 +9,7 @@ Example:
 
 #import "ReactiveEntity.h"
 
-@interface User : REAbstractEntity
+@interface User : REReactiveEntity
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) NSString *profileImageURL;
@@ -48,15 +48,15 @@ Example:
     XCTAssertEqualObjects(user.name, @"Jake");
 }
 
-- (void)testSynchronize
+- (void)testDataFlow
 {
     __block NSString *name = @"John";
     
     User *user = [User entityWithIdentifier:@(2)];
     user.name = name;
     
-    // setup `Synchronized Scope` and call the block at once 
-    [user synchronizedScopeWithOwner:self block:^{
+    // setup `DataFlow` and call the block at once 
+    [user reactiveDataFlowWithOwner:self block:^(id owner) {
         name = user.name;
     }];
     
@@ -65,7 +65,17 @@ Example:
     XCTAssertEqualObjects(name, @"Jeremy");
     
     User *user2 = [User entityWithIdentifier:@(2)];
-    user2.name = @"Jack"; // call Synchronized Scope automatically in setter
+    user2.name = @"Jack";
+    
+    // -[REReactiveDataFlow push] is called automatically in -[User setName:].
+    //
+    // user2
+    //  \_ -[NSObject reactiveDataFlows] (NSArray)
+    //     \_ * REReactiveDataFlow --[push]--> `name` (local variable)
+    //        * REReactiveDataFlow --[push]--> ...
+    //        * REReactiveDataFlow --[push]--> ...
+    //        ...
+    //
     
     XCTAssertEqualObjects(name, @"Jack"); // Modified
 }
@@ -86,29 +96,30 @@ Example:
     XCTAssertEqualObjects(user.profileImageURL);
 }
 
-- (void)testScopeLifetime
+- (void)testDataFlowLifetime
 {
-    User *user = [User entityWithIdentifier:@(2)];
+    User *user = [User entityWithIdentifier:@(3)];
     user.name = @"Jacob";
     user.age  = @(10);
     
     __block NSInteger counter = 0;
     
     @autoreleasepool {
-        NSObject *owner = [[NSObject alloc] init];
+        NSObject *object = [[NSObject alloc] init];
         
-        [user synchronizedScopeWithOwner:owner block:^{
+        [user reactiveDataFlowWithOwner:object block:^(NSObject *owner) {
+            NSLog(@"%@", owner);
             counter++;
         }];
         
-        XCTAssertEqual(counter, 1);
+        XCTAssertEqual(counter, (NSInteger)1);
         
         user.age = @(11);
         
-        XCTAssertEqual(counter, 2);
+        XCTAssertEqual(counter, (NSInteger)2);
     }
 
-    // Synchronized scope lifetime are same as owner
+    // DataFlow lifetime are same as owner
     
     user.age = @(12);
     

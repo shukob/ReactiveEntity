@@ -40,7 +40,7 @@
     XCTAssertEqualObjects(user.name, @"Jake", @"エンティティにデータが正しくアサインできること");
 }
 
-- (void)testSynchronize
+- (void)testDataFlow
 {
     __block NSString *name = @"John";
     
@@ -53,12 +53,12 @@
     
     user.name = @"Jeremy";
     
-    XCTAssertEqualObjects(name, @"Jeremy", @"エンティティが更新されたとき、synchronized ブロックが実行されること");
+    XCTAssertEqualObjects(name, @"Jeremy", @"エンティティが更新されたとき、データフローが実行されること");
     
     User *user2 = [User entityWithIdentifier:@(2)];
     user2.name = @"Jack";
     
-    XCTAssertEqualObjects(name, @"Jack", @"コンテクストから取得したエンティティを更新した場合も正しく synchronized ブロックが実行されること");
+    XCTAssertEqualObjects(name, @"Jack", @"コンテクストから取得したエンティティを更新した場合も正しくデータフローが実行されること");
 }
 
 - (void)testImport
@@ -128,7 +128,7 @@
     XCTAssertEqualObjects([article.tags[0] name], @"日記", @"辞書型をインポートした際に関連する複数のエンティティクラスが自動的に生成・保存されること");
 }
 
-- (void)testScopeLifetime
+- (void)testDataFlowLifetime
 {
     User *user = [User entityWithIdentifier:@(3)];
     user.name = @"Jacob";
