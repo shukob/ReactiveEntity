@@ -12,4 +12,9 @@
 
 @dynamic originalURL, thumbnailURL;
 
++ (NSString *)identifierKey
+{
+    return nil;
+}
+
 @end

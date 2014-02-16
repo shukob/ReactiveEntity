@@ -27,8 +27,10 @@
             [self.variables addObject:[NSNull null]];
         }
         
-        NSString *identifierKey = [self.class identifierKey];
-        [self setValue:identifier forKey:identifierKey];
+        if ([self.class hasIdentifierProperty]) {
+            NSString *identifierKey = [self.class identifierKey];
+            [self setValue:identifier forKey:identifierKey];
+        }
     }
     return self;
 }
@@ -156,7 +158,8 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key push:(BOOL)push
 {
-    BOOL isPrimaryKey = [key isEqualToString:[self.class identifierKey]];
+    NSString *identifierKey = [self.class identifierKey];
+    BOOL isPrimaryKey = identifierKey && [key isEqualToString:identifierKey];
     
     REEntityModel *entityModel = [self.class entityModel];
     if (isPrimaryKey || [entityModel hasVariableForKey:key]) {
@@ -184,7 +187,8 @@
 
 + (BOOL)hasIdentifierProperty
 {
-    return [[self entityModel] variableIndexForKey:[self identifierKey]] != NSNotFound;
+    NSString *identifierKey = [self identifierKey];
+    return identifierKey && [[self entityModel] variableIndexForKey:identifierKey] != NSNotFound;
 }
 
 #pragma mark -
@@ -299,8 +303,17 @@
 + (instancetype)importFromDictionary:(NSDictionary *)attributes
 {
     REKeyTranslator *translator = [self.class entityModel].massAssignmentKeyTranslator;
-    NSString *identifierKey = [translator restoreSourceKeyForTranslatedKey:[self identifierKey]] ?: [self identifierKey];
-    REReactiveEntity *entity = [self entityWithIdentifier:attributes[identifierKey]];
+    REReactiveEntity *entity = nil;
+    
+    if ([self identifierKey]) {
+        NSString *identifierKey = [translator restoreSourceKeyForTranslatedKey:[self identifierKey]] ?: [self identifierKey];
+        id<NSCopying> identifier = attributes[identifierKey];
+        entity = [self entityWithIdentifier:identifier];
+        
+    } else {
+        entity = [self entityWithUnspecificIdentifier];
+    }
+    
     [entity assignAttributesFromDictionary:attributes];
     return entity;
 }
@@ -310,11 +323,13 @@
     REKeyTranslator     *translator        = [self.class entityModel].massAssignmentKeyTranslator;
     REAssociationMapper *associationMapper = [self.class entityModel].associationMapper;
     
+    NSString *identifierKey = [self.class identifierKey];
+    
     for (NSString *key in attributes.allKeys) {
         id value = attributes[key];
         id translatedKey = [translator translateKeyForSourceKey:key];
         
-        if ([translatedKey isEqualToString:[self.class identifierKey]]) {
+        if (identifierKey && [translatedKey isEqualToString:identifierKey]) {
             continue;
         }
         

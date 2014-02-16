@@ -22,6 +22,7 @@
 + (NSString *)entityName;
 + (NSSet *)allEntities;
 
++ (NSString *)identifierKey;
 + (BOOL)hasIdentifierProperty;
 
 - (instancetype)copiedEntityWithNewIdentifier:(id <NSCopying>)identifier;
@@ -32,8 +33,6 @@
 
 + (REContext *)context;
 + (REEntityModel *)entityModel;
-
-+ (NSString *)identifierKey;
 
 - (instancetype)isolatedEntity;
 @property (readonly, getter = isIsolated) BOOL isolated;
