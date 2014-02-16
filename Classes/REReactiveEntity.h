@@ -32,6 +32,9 @@
 
 + (NSString *)identifierKey;
 
+- (instancetype)isolatedEntity;
+@property (readonly, getter = isIsolated) BOOL isolated;
+
 @end
 
 @interface REReactiveEntity (MassAssignment)

@@ -198,6 +198,16 @@
     return entity;
 }
 
+- (instancetype)isolatedEntity
+{
+    REReactiveEntity *entity = [[self.class alloc] init];
+    entity.variables = self.variables.mutableCopy;
+    entity.isolated = YES;
+    return entity;
+}
+
+#pragma mark -
+
 - (id)__getterTemplate
 {
     return [self valueForSelector:_cmd];
