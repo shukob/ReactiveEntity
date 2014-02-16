@@ -21,6 +21,8 @@
 + (NSString *)entityName;
 + (NSSet *)allEntities;
 
+- (instancetype)copiedEntityWithNewIdentifier:(id <NSCopying>)identifier;
+
 - (id <NSCopying>)identifier;
 
 - (void)setValue:(id)value forKey:(NSString *)key push:(BOOL)push;
