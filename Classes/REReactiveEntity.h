@@ -22,6 +22,8 @@
 + (NSString *)entityName;
 + (NSSet *)allEntities;
 
++ (BOOL)hasIdentifierProperty;
+
 - (instancetype)copiedEntityWithNewIdentifier:(id <NSCopying>)identifier;
 
 - (id <NSCopying>)identifier;

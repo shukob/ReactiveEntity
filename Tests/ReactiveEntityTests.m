@@ -88,6 +88,12 @@
     XCTAssertEqualObjects(user.profileImageURL, @"http://0.0.0.0/nyan.png", @"キー変換が正しく行われた上でインポートできていること");
 }
 
+- (void)testIdentifier
+{
+    XCTAssertTrue([User hasIdentifierProperty],   @"identifier property を持っている場合");
+    XCTAssertFalse([Image hasIdentifierProperty], @"identifier property を持っていない場合");
+}
+
 - (void)testImportList
 {
     NSArray *users = [User importFromListOfDictionary:@[@{

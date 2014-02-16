@@ -182,6 +182,11 @@
     }
 }
 
++ (BOOL)hasIdentifierProperty
+{
+    return [[self entityModel] variableIndexForKey:[self identifierKey]] != NSNotFound;
+}
+
 #pragma mark -
 
 - (id)valueForSelector:(SEL)selector

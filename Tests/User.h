@@ -7,6 +7,7 @@
  */
 
 #import "ReactiveEntity.h"
+#import "Image.h"
 
 @interface User : REReactiveEntity
 
