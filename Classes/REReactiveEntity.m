@@ -300,6 +300,10 @@
         id value = attributes[key];
         id translatedKey = [translator translateKeyForSourceKey:key];
         
+        if ([translatedKey isEqualToString:[self.class identifierKey]]) {
+            continue;
+        }
+        
         REAssociationMapping *mapping = [associationMapper mappingForKey:key];
         
         if (mapping && [mapping isKindOfClass:[REAssociationMappingEntity class]]) {
