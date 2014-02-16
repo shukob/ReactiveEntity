@@ -21,12 +21,14 @@
 {
     if (self = [self init]) {
         self.identifier = identifier;
-        
         NSUInteger numberOfVariables = [self.class entityModel].numberOfVariables;
         self.variables  = [NSMutableArray arrayWithCapacity:numberOfVariables];
         for (NSUInteger index = 0; index < numberOfVariables; index++) {
             [self.variables addObject:[NSNull null]];
         }
+        
+        NSString *identifierKey = [self.class identifierKey];
+        [self setValue:identifier forKey:identifierKey];
     }
     return self;
 }
@@ -152,10 +154,11 @@
     
     REEntityModel *entityModel = [self.class entityModel];
     if (isPrimaryKey || [entityModel hasVariableForKey:key]) {
-        BOOL hasChanged = ! [[self valueForKey:key] isEqual:value];
+        id currentIdentifier = [self valueForKey:key];
+        BOOL hasChanged = ! [currentIdentifier isEqual:value];
         if (! hasChanged) return;
         
-        if (isPrimaryKey) {
+        if (currentIdentifier != nil && isPrimaryKey) {
             [[NSException exceptionWithName:@"CanNotModifyIdentifier" reason:nil userInfo:nil] raise];
         }
         
