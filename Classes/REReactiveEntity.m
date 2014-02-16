@@ -198,6 +198,16 @@
     return entity;
 }
 
+- (instancetype)isolatedEntity
+{
+    REReactiveEntity *entity = [[self.class alloc] init];
+    entity.variables = self.variables.mutableCopy;
+    entity.isolated = YES;
+    return entity;
+}
+
+#pragma mark -
+
 - (id)__getterTemplate
 {
     return [self valueForSelector:_cmd];
@@ -289,6 +299,10 @@
     for (NSString *key in attributes.allKeys) {
         id value = attributes[key];
         id translatedKey = [translator translateKeyForSourceKey:key];
+        
+        if ([translatedKey isEqualToString:[self.class identifierKey]]) {
+            continue;
+        }
         
         REAssociationMapping *mapping = [associationMapper mappingForKey:key];
         
