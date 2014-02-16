@@ -38,6 +38,12 @@
     return [[self context] entityWithIdentifier:identifier class:self];
 }
 
++ (instancetype)entityWithUnspecificIdentifier
+{
+    static NSInteger identifier = 1;
+    return [self entityWithIdentifier:@(identifier++)];
+}
+
 + (REContext *)context
 {
     return [[REContext defaultContext] childContextWithName:[self entityName]];

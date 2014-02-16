@@ -42,6 +42,16 @@
     XCTAssertEqualObjects(user.name, @"Jake", @"エンティティにデータが正しくアサインできること");
 }
 
+- (void)testUnspecificIdentifier
+{
+    User *user1 = [User entityWithUnspecificIdentifier];
+    User *user2 = [User entityWithUnspecificIdentifier];
+    User *user3 = [User entityWithUnspecificIdentifier];
+    
+    XCTAssertNotEqual(user1, user2, @"ID未指定でエンティティを取得したとき、毎回新しいものが作られること");
+    XCTAssertNotEqual(user2, user3, @"ID未指定でエンティティを取得したとき、毎回新しいものが作られること");
+}
+
 - (void)testDependence
 {
     __block NSString *name = @"John";

@@ -18,6 +18,7 @@
 
 - (instancetype)initWithIdentifier:(id <NSCopying>)identifier;
 + (instancetype)entityWithIdentifier:(id <NSCopying>)identifier;
++ (instancetype)entityWithUnspecificIdentifier;
 + (NSString *)entityName;
 + (NSSet *)allEntities;
 
