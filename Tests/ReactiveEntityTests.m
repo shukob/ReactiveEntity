@@ -44,12 +44,12 @@
 
 - (void)testUnspecificIdentifier
 {
-    User *user1 = [User entityWithUnspecificIdentifier];
-    User *user2 = [User entityWithUnspecificIdentifier];
-    User *user3 = [User entityWithUnspecificIdentifier];
+    User *user1 = [User isolatedEntity];
+    User *user2 = [User isolatedEntity];
+    User *user3 = [User isolatedEntity];
     
-    XCTAssertNotEqual(user1, user2, @"ID未指定でエンティティを取得したとき、毎回新しいものが作られること");
-    XCTAssertNotEqual(user2, user3, @"ID未指定でエンティティを取得したとき、毎回新しいものが作られること");
+    XCTAssertNotEqual(user1, user2, @"孤立エンティティを取得したとき、毎回新しいものが作られること");
+    XCTAssertNotEqual(user2, user3, @"孤立エンティティを取得したとき、毎回新しいものが作られること");
 }
 
 - (void)testDependence
@@ -79,13 +79,32 @@
                                               @"id": @(100),
                                               @"name": @"Joseph",
                                               @"age":  @(36),
-                                              @"profile_image_url": @"http://0.0.0.0/nyan.png",
+                                              @"profile_image": @{
+                                                      @"original_url":  [NSURL URLWithString:@"http://0.0.0.0/nyan.jpg"],
+                                                      @"thumbnail_url": [NSURL URLWithString:@"http://0.0.0.0/nyan_t.jpg"],
+                                                      },
                                               }];
     
     XCTAssertEqualObjects(user.name, @"Joseph", @"正しくインポートできていること");
     XCTAssertEqualObjects(user.age,  @(36),     @"正しくインポートできていること");
     
-    XCTAssertEqualObjects(user.profileImageURL, @"http://0.0.0.0/nyan.png", @"キー変換が正しく行われた上でインポートできていること");
+    XCTAssertEqualObjects(user.ID, @(100), @"キー変換が正しく行われた上でインポートできていること");
+    
+    XCTAssertEqualObjects(user.profileImage.originalURL, [NSURL URLWithString:@"http://0.0.0.0/nyan.jpg"], @"IDを持たないサブエンティティが正しくインポートできていること");
+    
+    User  *beforeUser  = user;
+    Image *beforeImage = user.profileImage;
+    
+    user = [User importFromDictionary:@{
+                                        @"id": @(100),
+                                        @"profile_image": @{
+                                                @"original_url":  [NSURL URLWithString:@"http://0.0.0.0/wan.jpg"],
+                                                @"thumbnail_url": [NSURL URLWithString:@"http://0.0.0.0/wan_t.jpg"],
+                                                },
+                                        }];
+    
+    XCTAssertEqual(beforeUser, user, @"インポートを繰り返してもエンティティのアドレスが同一であること");
+    XCTAssertEqual(beforeImage, user.profileImage, @"インポートを繰り返してもIDを持たないサブエンティティが同一であること");
 }
 
 - (void)testIdentifier

@@ -14,7 +14,8 @@
 @property NSNumber *ID;
 @property NSString *name;
 @property NSNumber *age;
-@property NSString *profileImageURL;
+
+@property Image *profileImage;
 
 @property REAssociatedCollection *articles;
 

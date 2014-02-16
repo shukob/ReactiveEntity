@@ -11,19 +11,22 @@
 
 @implementation User
 
-@dynamic ID, name, age, profileImageURL, articles;
+@dynamic ID, name, age, profileImage, articles;
 
 + (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
 {
     [translator addRuleForSourceKey:@"id"
                       translatedKey:@"ID"];
     
-    [translator addRuleForSourceKey:@"profile_image_url"
-                      translatedKey:@"profileImageURL"];
+    [translator addRuleForSourceKey:@"profile_image"
+                      translatedKey:@"profileImage"];
 }
 
 + (void)associationMapper:(REAssociationMapper *)mapper
 {
+    [mapper registerAssociatedEntityForKey:@"profileImage"
+                               entityClass:[Image class]];
+    
     [mapper registerAssociatedEntityCollectionForKey:@"articles"
                                          entityClass:[Article class]
                                           foreignKey:@"author"];

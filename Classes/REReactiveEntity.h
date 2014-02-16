@@ -18,7 +18,8 @@
 
 - (instancetype)initWithIdentifier:(id <NSCopying>)identifier;
 + (instancetype)entityWithIdentifier:(id <NSCopying>)identifier;
-+ (instancetype)entityWithUnspecificIdentifier;
++ (instancetype)isolatedEntity;
+
 + (NSString *)entityName;
 + (NSSet *)allEntities;
 
@@ -34,7 +35,8 @@
 + (REContext *)context;
 + (REEntityModel *)entityModel;
 
-- (instancetype)isolatedEntity;
+- (instancetype)isolatedCopy;
+
 @property (readonly, getter = isIsolated) BOOL isolated;
 
 @end

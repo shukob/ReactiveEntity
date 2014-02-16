@@ -12,6 +12,15 @@
 
 @dynamic originalURL, thumbnailURL;
 
++ (void)keyTranslatorForMassAssignment:(REKeyTranslator *)translator
+{
+    [translator addRuleForSourceKey:@"original_url"
+                      translatedKey:@"originalURL"];
+    
+    [translator addRuleForSourceKey:@"thumbnail_url"
+                      translatedKey:@"thumbnailURL"];
+}
+
 + (NSString *)identifierKey
 {
     return nil;

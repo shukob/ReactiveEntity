@@ -17,15 +17,22 @@
 
 @implementation REReactiveEntity
 
-- (instancetype)initWithIdentifier:(id<NSCopying>)identifier
+- (id)init
 {
-    if (self = [self init]) {
-        self.identifier = identifier;
+    if (self = [super init]) {
         NSUInteger numberOfVariables = [self.class entityModel].numberOfVariables;
         self.variables  = [NSMutableArray arrayWithCapacity:numberOfVariables];
         for (NSUInteger index = 0; index < numberOfVariables; index++) {
             [self.variables addObject:[NSNull null]];
         }
+    }
+    return self;
+}
+
+- (instancetype)initWithIdentifier:(id<NSCopying>)identifier
+{
+    if (self = [self init]) {
+        self.identifier = identifier;
         
         if ([self.class hasIdentifierProperty]) {
             NSString *identifierKey = [self.class identifierKey];
@@ -40,10 +47,11 @@
     return [[self context] entityWithIdentifier:identifier class:self];
 }
 
-+ (instancetype)entityWithUnspecificIdentifier
++ (instancetype)isolatedEntity
 {
-    static NSInteger identifier = 1;
-    return [self entityWithIdentifier:@(identifier++)];
+    REReactiveEntity *entity = [[self alloc] init];
+    entity.isolated = YES;
+    return entity;
 }
 
 + (REContext *)context
@@ -216,11 +224,10 @@
     return entity;
 }
 
-- (instancetype)isolatedEntity
+- (instancetype)isolatedCopy
 {
-    REReactiveEntity *entity = [[self.class alloc] init];
+    REReactiveEntity *entity = [self.class isolatedEntity];
     entity.variables = self.variables.mutableCopy;
-    entity.isolated = YES;
     return entity;
 }
 
@@ -311,7 +318,7 @@
         entity = [self entityWithIdentifier:identifier];
         
     } else {
-        entity = [self entityWithUnspecificIdentifier];
+        entity = [self isolatedEntity];
     }
     
     [entity assignAttributesFromDictionary:attributes];
@@ -326,22 +333,29 @@
     NSString *identifierKey = [self.class identifierKey];
     
     for (NSString *key in attributes.allKeys) {
-        id value = attributes[key];
+        id valueFromDictionary = attributes[key];
         id translatedKey = [translator translateKeyForSourceKey:key];
         
         if (identifierKey && [translatedKey isEqualToString:identifierKey]) {
             continue;
         }
         
-        REAssociationMapping *mapping = [associationMapper mappingForKey:key];
+        REAssociationMapping *mapping = [associationMapper mappingForKey:translatedKey];
         
+        id value = valueFromDictionary;
         if (mapping && [mapping isKindOfClass:[REAssociationMappingEntity class]]) {
             REAssociationMappingEntity *entityMapping = (id)mapping;
-            if ([value isKindOfClass:[NSArray class]]) {
-                value = [entityMapping.entityClass importFromListOfDictionary:value];
+            if ([valueFromDictionary isKindOfClass:[NSArray class]]) {
+                value = [entityMapping.entityClass importFromListOfDictionary:valueFromDictionary];
                 
-            } else if([value isKindOfClass:[NSDictionary class]]) {
-                value = [entityMapping.entityClass importFromDictionary:value];
+            } else if([valueFromDictionary isKindOfClass:[NSDictionary class]]) {
+                REReactiveEntity *previousEntity = [self valueForKey:translatedKey];
+                if (previousEntity.isolated) {
+                    [previousEntity assignAttributesFromDictionary:valueFromDictionary];
+                    value = previousEntity;
+                } else {
+                    value = [entityMapping.entityClass importFromDictionary:valueFromDictionary];
+                }
             }
         }
         [self setValue:value forKey:translatedKey push:NO];
