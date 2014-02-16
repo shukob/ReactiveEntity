@@ -12,6 +12,7 @@
 @interface REReactiveEntity ()
 @property (nonatomic, copy)   id<NSCopying>   identifier;
 @property (nonatomic, strong) NSMutableArray *variables;
+@property BOOL isolated;
 @end
 
 @implementation REReactiveEntity
@@ -147,10 +148,20 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key push:(BOOL)push
 {
+    BOOL isPrimaryKey = [key isEqualToString:[self.class identifierKey]];
+    
     REEntityModel *entityModel = [self.class entityModel];
-    if ([entityModel hasVariableForKey:key]) {
-        self.variables[[entityModel variableIndexForKey:key]] = value ?: [NSNull null];
-        if (push) {
+    if (isPrimaryKey || [entityModel hasVariableForKey:key]) {
+        BOOL hasChanged = ! [[self valueForKey:key] isEqual:value];
+        if (! hasChanged) return;
+        
+        if (isPrimaryKey) {
+            [[NSException exceptionWithName:@"CanNotModifyIdentifier" reason:nil userInfo:nil] raise];
+        }
+        
+        NSInteger index = [entityModel variableIndexForKey:key];
+        self.variables[index] = value ?: [NSNull null];
+        if (push && ! _isolated) {
             [self push];
         }
     } else {
@@ -179,6 +190,13 @@
 }
 
 #pragma mark -
+
+- (instancetype)copiedEntityWithNewIdentifier:(id<NSCopying>)identifier
+{
+    REReactiveEntity *entity = [self.class entityWithIdentifier:identifier];
+    entity.variables = self.variables.mutableCopy;
+    return entity;
+}
 
 - (id)__getterTemplate
 {
