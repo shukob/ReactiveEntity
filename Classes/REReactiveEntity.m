@@ -328,7 +328,7 @@
     REKeyTranslator *translator = [self.class entityModel].massAssignmentKeyTranslator;
     REReactiveEntity *entity = nil;
     
-    if ([self identifierKey]) {
+    if ([self hasIdentifierProperty]) {
         NSString *identifierKey = [translator restoreSourceKeyForTranslatedKey:[self identifierKey]] ?: [self identifierKey];
         id<NSCopying> identifier = attributes[identifierKey];
         entity = [self entityWithIdentifier:identifier];
