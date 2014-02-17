@@ -7,6 +7,7 @@
  */
 
 #import "REKeyTranslator.h"
+#import "REValueTransformer.h"
 
 @class REAssociationMapper;
 
@@ -21,5 +22,6 @@
 
 @property (nonatomic, strong) REKeyTranslator     *massAssignmentKeyTranslator;
 @property (nonatomic, strong) REAssociationMapper *associationMapper;
+@property (nonatomic, strong) REValueTransformer  *valueTransformer;
 
 @end

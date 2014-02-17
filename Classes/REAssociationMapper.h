@@ -6,8 +6,6 @@
  |=
  */
 
-#import "REReactiveCollection.h"
-
 @interface REAssociationMapping : NSObject
 @property (readonly) Class entityClass;
 @end

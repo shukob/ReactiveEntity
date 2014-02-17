@@ -73,6 +73,21 @@
     XCTAssertEqualObjects(name, @"Jack", @"コンテクストから取得したエンティティを更新した場合も正しくデータフローが実行されること");
 }
 
+- (void)testValueTransform
+{
+    Image *image = [Image importFromDictionary:@{
+                                                 @"content_type":  @"image/jpeg",
+                                                 @"original_url":  @"http://0.0.0.0/wan.jpg",
+                                                 @"thumbnail_url": @"http://0.0.0.0/wan_t.jpg",
+                                                 }];
+    
+    XCTAssertEqualObjects(image.originalURL, [NSURL URLWithString:@"http://0.0.0.0/wan.jpg"], @"import 時、valueTransformer により変換された値が設定されていること");
+    
+    image.originalURL = (id)@"http://0.0.0.0/nyan.jpg";
+    
+    XCTAssertEqualObjects(image.originalURL, [NSURL URLWithString:@"http://0.0.0.0/nyan.jpg"], @"set 時、valueTransformer により変換された値が設定されていること");
+}
+
 - (void)testImport
 {
     User *user = [User importFromDictionary:@{
@@ -80,8 +95,9 @@
                                               @"name": @"Joseph",
                                               @"age":  @(36),
                                               @"profile_image": @{
-                                                      @"original_url":  [NSURL URLWithString:@"http://0.0.0.0/nyan.jpg"],
-                                                      @"thumbnail_url": [NSURL URLWithString:@"http://0.0.0.0/nyan_t.jpg"],
+                                                      @"content_type":  @"image/jpeg",
+                                                      @"original_url":  @"http://0.0.0.0/wan.jpg",
+                                                      @"thumbnail_url": @"http://0.0.0.0/wan_t.jpg",
                                                       },
                                               }];
     
@@ -90,7 +106,7 @@
     
     XCTAssertEqualObjects(user.ID, @(100), @"キー変換が正しく行われた上でインポートできていること");
     
-    XCTAssertEqualObjects(user.profileImage.originalURL, [NSURL URLWithString:@"http://0.0.0.0/nyan.jpg"], @"IDを持たないサブエンティティが正しくインポートできていること");
+    XCTAssertEqualObjects(user.profileImage.contentType, @"image/jpeg", @"IDを持たないサブエンティティが正しくインポートできていること");
     
     User  *beforeUser  = user;
     Image *beforeImage = user.profileImage;
@@ -98,8 +114,9 @@
     user = [User importFromDictionary:@{
                                         @"id": @(100),
                                         @"profile_image": @{
-                                                @"original_url":  [NSURL URLWithString:@"http://0.0.0.0/wan.jpg"],
-                                                @"thumbnail_url": [NSURL URLWithString:@"http://0.0.0.0/wan_t.jpg"],
+                                                @"content_type": @"image/jpeg",
+                                                @"original_url":  @"http://0.0.0.0/wan.jpg",
+                                                @"thumbnail_url": @"http://0.0.0.0/wan_t.jpg",
                                                 },
                                         }];
     

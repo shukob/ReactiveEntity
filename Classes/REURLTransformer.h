@@ -6,12 +6,6 @@
  |=
  */
 
-#import "REReactiveEntity.h"
-
-@interface Image : REReactiveEntity
-
-@property NSString *contentType;
-@property NSURL *originalURL;
-@property NSURL *thumbnailURL;
+@interface REURLTransformer : NSValueTransformer
 
 @end

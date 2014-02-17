@@ -11,8 +11,8 @@
 #import "REKeyTranslator.h"
 #import "REDependence.h"
 #import "REReactiveObject.h"
-
-@class REAssociationMapper;
+#import "REValueTransformer.h"
+#import "REAssociationMapper.h"
 
 @interface REReactiveEntity : REReactiveObject
 
@@ -38,6 +38,12 @@
 - (instancetype)isolatedCopy;
 
 @property (readonly, getter = isIsolated) BOOL isolated;
+
+@end
+
+@interface REReactiveEntity (ValueTransform)
+
++ (void)valueTransformer:(REValueTransformer *)transformer;
 
 @end
 

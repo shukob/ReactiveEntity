@@ -88,6 +88,10 @@
         REAssociationMapper *associationMapper = [[REAssociationMapper alloc] init];
         [self associationMapper:associationMapper];
         [self entityModel].associationMapper = associationMapper;
+        
+        REValueTransformer *valueTransformer = [[REValueTransformer alloc] init];
+        [self valueTransformer:valueTransformer];
+        [self entityModel].valueTransformer = valueTransformer;
     }
 }
 
@@ -128,35 +132,34 @@
     REEntityModel       *entityModel       = [self.class entityModel];
     REAssociationMapper *associationMapper = entityModel.associationMapper;
     
-    if ([entityModel hasVariableForKey:key]) {
-        REAssociationMapping *mapping = [associationMapper mappingForKey:key];
-        
-        NSUInteger index = [entityModel variableIndexForKey:key];
-        id value = self.variables[index];
-        
-        if ([value isKindOfClass:[NSNull class]]) {
-            value = nil;
-        }
-        
-        if (value) {
-            return value;
-        }
-        
-        if (mapping && [mapping isKindOfClass:[REAssociationMappingCollection class]]) {
-            NSString *foreignKey = [(REAssociationMappingCollection *)mapping foreignKey];
-            __block REAssociatedCollection *collection = [[REAssociatedCollection alloc] initWithOwner:self
-                                                                                          referenceKey:key
-                                                                                           entityClass:mapping.entityClass
-                                                                                            foreignKey:foreignKey];
-            self.variables[index] = collection;
-            return collection;
-        }
-        
-        return nil;
-        
-    } else {
+    if (! [entityModel hasVariableForKey:key]) {
         return [super valueForKey:key];
     }
+    
+    REAssociationMapping *mapping = [associationMapper mappingForKey:key];
+    
+    NSUInteger index = [entityModel variableIndexForKey:key];
+    id value = self.variables[index];
+    
+    if ([value isKindOfClass:[NSNull class]]) {
+        value = nil;
+    }
+    
+    if (value) {
+        return value;
+    }
+    
+    if (mapping && [mapping isKindOfClass:[REAssociationMappingCollection class]]) {
+        NSString *foreignKey = [(REAssociationMappingCollection *)mapping foreignKey];
+        __block REAssociatedCollection *collection = [[REAssociatedCollection alloc] initWithOwner:self
+                                                                                      referenceKey:key
+                                                                                       entityClass:mapping.entityClass
+                                                                                        foreignKey:foreignKey];
+        self.variables[index] = collection;
+        return collection;
+    }
+    
+    return nil;
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key
@@ -171,8 +174,12 @@
     
     REEntityModel *entityModel = [self.class entityModel];
     if (isPrimaryKey || [entityModel hasVariableForKey:key]) {
+        
+        id transformedValue = [entityModel.valueTransformer transformedValue:value
+                                                                      forKey:key];
+        
         id currentIdentifier = [self valueForKey:key];
-        BOOL hasChanged = ! [currentIdentifier isEqual:value];
+        BOOL hasChanged = ! [currentIdentifier isEqual:transformedValue];
         if (! hasChanged) return;
         
         if (currentIdentifier != nil && isPrimaryKey) {
@@ -180,7 +187,8 @@
         }
         
         NSInteger index = [entityModel variableIndexForKey:key];
-        self.variables[index] = value ?: [NSNull null];
+        self.variables[index] = transformedValue ?: [NSNull null];
+        
         if (push && ! _isolated) {
             [self push];
         }
@@ -301,6 +309,14 @@
 + (NSString *)identifierKey
 {
     return @"ID";
+}
+
+@end
+
+@implementation REReactiveEntity (ValueTransform)
+
++ (void)valueTransformer:(REValueTransformer *)transformer
+{
 }
 
 @end

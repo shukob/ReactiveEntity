@@ -27,6 +27,8 @@
 		AE3D8B5B18ABD987007BC0EF /* REReactiveCollectionAssociation.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3D8B5A18ABD987007BC0EF /* REReactiveCollectionAssociation.m */; };
 		AE3D8B5E18ABEFA4007BC0EF /* REAssociatedCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3D8B5D18ABEFA4007BC0EF /* REAssociatedCollection.m */; };
 		AE4E073C18B172F300C4FCE1 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E073B18B172F300C4FCE1 /* Image.m */; };
+		AE4E074018B188F600C4FCE1 /* REURLTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E073F18B188F600C4FCE1 /* REURLTransformer.m */; };
+		AE4E074618B1AC4A00C4FCE1 /* REValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E074518B1AC4A00C4FCE1 /* REValueTransformer.m */; };
 		AE65FC1018479BD90035E2AE /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC0C18479BD90035E2AE /* Article.m */; };
 		AE65FC1218479BD90035E2AE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC0E18479BD90035E2AE /* Tag.m */; };
 		AE65FC1518479BF70035E2AE /* REAssociationMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65FC1418479BF70035E2AE /* REAssociationMapper.m */; };
@@ -88,6 +90,10 @@
 		AE3D8B5D18ABEFA4007BC0EF /* REAssociatedCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REAssociatedCollection.m; sourceTree = "<group>"; };
 		AE4E073A18B172F300C4FCE1 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		AE4E073B18B172F300C4FCE1 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		AE4E073E18B188F600C4FCE1 /* REURLTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REURLTransformer.h; sourceTree = "<group>"; };
+		AE4E073F18B188F600C4FCE1 /* REURLTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REURLTransformer.m; sourceTree = "<group>"; };
+		AE4E074418B1AC4A00C4FCE1 /* REValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REValueTransformer.h; sourceTree = "<group>"; };
+		AE4E074518B1AC4A00C4FCE1 /* REValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REValueTransformer.m; sourceTree = "<group>"; };
 		AE65FC0B18479BD90035E2AE /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		AE65FC0C18479BD90035E2AE /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		AE65FC0D18479BD90035E2AE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
@@ -201,6 +207,9 @@
 				15E9D726183C4900005648D7 /* REEntityModel.m */,
 				15E9D722183C435D005648D7 /* REContext.h */,
 				15E9D723183C435D005648D7 /* REContext.m */,
+				AE4E074418B1AC4A00C4FCE1 /* REValueTransformer.h */,
+				AE4E074518B1AC4A00C4FCE1 /* REValueTransformer.m */,
+				AE4E073D18B188E100C4FCE1 /* Transformers */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -218,6 +227,15 @@
 				AE65FC0E18479BD90035E2AE /* Tag.m */,
 			);
 			name = "Test Classes";
+			sourceTree = "<group>";
+		};
+		AE4E073D18B188E100C4FCE1 /* Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				AE4E073E18B188F600C4FCE1 /* REURLTransformer.h */,
+				AE4E073F18B188F600C4FCE1 /* REURLTransformer.m */,
+			);
+			name = Transformers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +328,8 @@
 				AE3D8B5518AB2D81007BC0EF /* REReactiveCollection.m in Sources */,
 				AE3D8B5818AB560B007BC0EF /* REReactiveObject.m in Sources */,
 				AE3D8B5E18ABEFA4007BC0EF /* REAssociatedCollection.m in Sources */,
+				AE4E074018B188F600C4FCE1 /* REURLTransformer.m in Sources */,
+				AE4E074618B1AC4A00C4FCE1 /* REValueTransformer.m in Sources */,
 				AE65FC1518479BF70035E2AE /* REAssociationMapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
