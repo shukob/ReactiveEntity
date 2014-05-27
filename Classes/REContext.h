@@ -31,4 +31,6 @@
 - (void)clearAllEntities;
 - (void)clearAllEntitiesRecursive;
 
+- (void)deleteEntityWithIdentifier:(id <NSCopying>)identifier;
+
 @end

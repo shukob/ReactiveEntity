@@ -95,4 +95,11 @@ static REContext *__defaultContext = nil;
     }
 }
 
+- (void)deleteEntityWithIdentifier:(id<NSCopying>)identifier
+{
+    REReactiveEntity *entity = [self.entities objectForKey:identifier];
+    [self.allEntities removeObject:entity];
+    [self.entities removeObjectForKey:identifier];
+}
+
 @end

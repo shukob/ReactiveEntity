@@ -37,6 +37,8 @@
 
 - (instancetype)isolatedCopy;
 
+- (void)deleteEntity;
+
 @property (readonly, getter = isIsolated) BOOL isolated;
 
 @end

@@ -293,6 +293,22 @@
     XCTAssertEqual(minorUsers.setRepresentation.count, (NSUInteger)1, @"条件を使って作成したコレクションがエンティティの状態変化によって自動的に更新されること");
 }
 
+- (void)testDeleteEntity
+{
+    User *userA = [User entityWithIdentifier:@(1)];
+    User *userB = [User entityWithIdentifier:@(2)];
+    
+    XCTAssertEqual([User allEntities].count, 2);
+    
+    [userA deleteEntity];
+    
+    XCTAssertEqual([User allEntities].count, 1);
+    
+    [userB deleteEntity];
+    
+    XCTAssertEqual([User allEntities].count, 0);
+}
+
 - (void)testReactiveCollectionSortedArray
 {
     User *userA = [User entityWithIdentifier:@(5)];
@@ -367,6 +383,51 @@
     [user.articles addEntity:article3];
     
     XCTAssertEqual(counter, (NSInteger)4, @"直接のエンティティ追加によって一対多関連のアソシエーションが変動したときに依存元に push が送られること");
+}
+
+- (void)testDependencyOnAssociatedReactiveCollectionDeletion
+{
+    User *user = [User entityWithIdentifier:@(1)];
+    
+    Article *article1 = [Article entityWithIdentifier:@(1)];
+    Article *article2 = [Article entityWithIdentifier:@(2)];
+    Article *article3 = [Article entityWithIdentifier:@(3)];
+    
+    __block NSInteger numberOfArticles = 0;
+    
+    __weak User *weakUser = user;
+    [user.articles addDependenceFromSource:self block:^(id source) {
+        numberOfArticles = weakUser.articles.setRepresentation.count;
+    }];
+    
+    XCTAssertEqual(numberOfArticles, (NSInteger)0);
+    
+    [user.articles addEntity:article1];
+    
+    XCTAssertEqual(numberOfArticles, (NSInteger)1);
+    
+    [user.articles addEntity:article2];
+    
+    XCTAssertEqual(numberOfArticles, (NSInteger)2);
+    
+    [user.articles addEntity:article3];
+    
+    XCTAssertEqual(numberOfArticles, (NSInteger)3);
+
+    // pending
+#if 0
+        [article1 deleteEntity];
+        
+        XCTAssertEqual(numberOfArticles, (NSInteger)2);
+        
+        [article2 deleteEntity];
+        
+        XCTAssertEqual(numberOfArticles, (NSInteger)1);
+        
+        [article3 deleteEntity];
+        
+        XCTAssertEqual(numberOfArticles, (NSInteger)0);
+#endif
 }
 
 - (void)testAssociatedReactiveCollectionManyToMany

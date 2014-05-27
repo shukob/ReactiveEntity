@@ -241,6 +241,13 @@
 
 #pragma mark -
 
+- (void)deleteEntity
+{
+    [[self.class context] deleteEntityWithIdentifier:self.identifier];
+}
+
+#pragma mark -
+
 - (id)__getterTemplate
 {
     return [self valueForSelector:_cmd];
