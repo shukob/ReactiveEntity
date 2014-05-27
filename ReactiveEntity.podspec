@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ReactiveEntity"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "Reactive Entity is Memory-based ValueObject Library"
 
   s.description  = <<-DESC
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.author       = { "AOKI Yuuto" => "aoki@limbate.com" }
   s.platform     = :ios, '6.0'
-  s.source       = { :git => "https://github.com/Limbate/ReactiveEntity.git", :tag => "0.0.5" }
+  s.source       = { :git => "https://github.com/Limbate/ReactiveEntity.git", :tag => "0.0.6" }
 
   s.source_files  = 'Classes', 'Classes/**/*.{h,m}'
   s.public_header_files = 'Classes/**/*.h'
