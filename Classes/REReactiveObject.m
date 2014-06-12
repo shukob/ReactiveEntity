@@ -47,6 +47,17 @@
     return [REDependence addDependenceFromSource:source destination:self name:nameObject queue:queue block:block];
 }
 
+- (void)removeDependenceFromSource:(id)source
+{
+    [REDependence removeDependenceFromSource:source destination:self name:nil];
+}
+
+- (void)removeDependenceFromSource:(id)source name:(const void *)name
+{
+    NSString *nameObject = [NSString stringWithCString:name ?: "" encoding:NSASCIIStringEncoding];
+    [REDependence removeDependenceFromSource:source destination:self name:nameObject];
+}
+
 - (void)push
 {
     for (REDependence *dependence in self.reactiveInverseDependences) {

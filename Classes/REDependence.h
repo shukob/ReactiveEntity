@@ -11,6 +11,7 @@
 @interface REDependence : NSObject
 
 + (instancetype)addDependenceFromSource:(id)source destination:(REReactiveObject *)destination name:(NSString *)name queue:(dispatch_queue_t)queue block:(void(^)(id source))block;
++ (void)removeDependenceFromSource:(id)source destination:(REReactiveObject *)destination name:(NSString *)name;
 
 - (void)push;
 - (void)unlink;

@@ -80,6 +80,15 @@
     return [[self alloc] initWithSource:source destination:destination name:name queue:queue block:block];
 }
 
++ (void)removeDependenceFromSource:(id)source destination:(REReactiveObject *)destination name:(NSString *)name
+{
+    for (REDependence *dependence in [source reactiveDependencesInternal].copy) {
+        if ((name.length == 0 && dependence.name.length == 0) || [dependence.name isEqualToString:name]) {
+            [dependence unlink];
+        }
+    }
+}
+
 - (void)push
 {
     if (self.queue) {
