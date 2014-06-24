@@ -63,4 +63,9 @@ static REEntityModel *__defaultEntityModel = nil;
     return self.variables.count;
 }
 
+- (NSArray *)variableKeys
+{
+    return self.variables.copy;
+}
+
 @end

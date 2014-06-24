@@ -32,6 +32,8 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key push:(BOOL)push;
 
+- (NSDictionary *)attributes;
+
 + (REContext *)context;
 + (REEntityModel *)entityModel;
 

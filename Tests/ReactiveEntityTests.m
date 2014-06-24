@@ -154,6 +154,19 @@
     XCTAssertEqualObjects([users[1] age],  @(24),    @"正しくインポートできていること");
 }
 
+- (void)testExportToDictionary
+{
+    NSDictionary *attribtues = @{
+                                 @"id": @(1),
+                                 @"name": @"Jane",
+                                 @"age":  @(38),
+                                 };
+    
+    User *user = [User importFromDictionary:attribtues];
+    
+    XCTAssertEqualObjects(user.attributes, attribtues, @"import した dictionary と export した dictionary が同一であること");
+}
+
 - (void)testImportWithAssociation
 {
     Article *article = [Article importFromDictionary:@{

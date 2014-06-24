@@ -19,6 +19,7 @@
 - (BOOL)hasVariableForKey:(NSString *)key;
 - (NSUInteger)variableIndexForKey:(NSString *)key;
 - (NSUInteger)numberOfVariables;
+- (NSArray *)variableKeys;
 
 @property (nonatomic, strong) REKeyTranslator     *massAssignmentKeyTranslator;
 @property (nonatomic, strong) REAssociationMapper *associationMapper;

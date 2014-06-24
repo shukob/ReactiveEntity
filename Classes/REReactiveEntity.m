@@ -201,6 +201,18 @@
     }
 }
 
+- (NSDictionary *)attributes
+{
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    for (NSString *key in [self.class entityModel].variableKeys) {
+        id value = [self valueForKey:key];
+        if (value && ! [value isKindOfClass:[REAssociatedCollection class]]) {
+            attributes[key] = value;
+        }
+    }
+    return attributes.copy;
+}
+
 + (BOOL)hasIdentifierProperty
 {
     NSString *identifierKey = [self identifierKey];
