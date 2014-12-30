@@ -112,7 +112,7 @@
 
 - (NSArray *)reactiveDependences
 {
-    return [objc_msgSend(self, NSSelectorFromString(@"reactiveDependencesInternal")) copy];
+    return [(id)(((id(*)(id, SEL))objc_msgSend)(self, NSSelectorFromString(@"reactiveDependencesInternal"))) copy];
 }
 
 - (REDependence *)reactiveDependenceWithName:(NSString *)name
